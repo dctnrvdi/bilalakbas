@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import AdminProjelerClient from '@/components/admin/AdminProjelerClient'
+export const revalidate = 0
 
 export default async function AdminProjelerPage() {
   let projects: any[] = []

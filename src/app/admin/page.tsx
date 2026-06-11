@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import AdminDashboardClient from '@/components/admin/AdminDashboardClient'
+export const revalidate = 0
 
 export default async function AdminDashboard() {
   let projectCount = 0
