@@ -1,3 +1,4 @@
+export const revalidate = 0
 import type { Metadata } from 'next'
 import HakkimizdaClient from '@/components/HakkimizdaClient'
 

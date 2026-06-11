@@ -1,3 +1,4 @@
+export const revalidate = 0
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import HomeClient from '@/components/HomeClient'
