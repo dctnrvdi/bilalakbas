@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     const dataUri = `data:${file.type};base64,${base64}`
 
     const result = await cloudinary.uploader.upload(dataUri, {
-      folder: 'ozkur-insaat',
+      folder: 'bilal-akbas',
       resource_type: type === 'video' ? 'video' : 'image',
       transformation: type === 'image' ? [
         { quality: 'auto', fetch_format: 'auto' },

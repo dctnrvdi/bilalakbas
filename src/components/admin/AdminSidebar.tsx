@@ -74,7 +74,7 @@ export default function AdminSidebar() {
           letterSpacing: '0.1em', textTransform: 'uppercase',
           color: 'var(--text-primary)',
           marginBottom: '4px',
-        }}>Özkur İnşaat</p>
+        }}>Bilal Akbaş</p>
         <p style={{
           fontSize: '10px', fontWeight: 500,
           letterSpacing: '0.18em', textTransform: 'uppercase',

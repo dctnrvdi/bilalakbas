@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'İletişim',
-  description: 'Özkur İnşaat ile iletişime geçin.',
+  description: 'Bilal Akbaş ile iletişime geçin.',
 }
 
 export default function IletisimPage() {

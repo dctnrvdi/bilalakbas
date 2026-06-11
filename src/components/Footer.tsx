@@ -14,7 +14,7 @@ export default function Footer() {
   }, [])
 
   const phone = settings.footer_phone || '+90 212 000 00 00'
-  const email = settings.footer_email || 'info@ozkurinsaat.com'
+  const email = settings.footer_email || 'info@bilalakbas.com'
   const address = settings.footer_address || 'Istanbul, Turkiye'
   const tagline = settings.footer_tagline || 'Guven - Kalite - Mukemmellik'
 
@@ -36,7 +36,7 @@ export default function Footer() {
               fontSize: '22px', fontWeight: 500,
               letterSpacing: '0.12em', textTransform: 'uppercase',
               color: 'var(--text-primary)', marginBottom: '16px',
-            }}>Ozkur Insaat</p>
+            }}>Bilal-Akbas</p>
             <p style={{
               fontSize: '13px', color: 'var(--text-secondary)',
               lineHeight: 1.7, maxWidth: '260px',
@@ -90,7 +90,7 @@ export default function Footer() {
           alignItems: 'center', flexWrap: 'wrap', gap: '16px',
         }}>
           <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-            © {new Date().getFullYear()} Ozkur Insaat. Tum haklari saklidir.
+            © {new Date().getFullYear()} Bilal Akbaş. Tum haklari saklidir.
           </p>
           <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
             {tagline}

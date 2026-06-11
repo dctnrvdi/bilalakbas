@@ -56,7 +56,7 @@ export default function Navbar() {
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
           }}>
-            Özkur İnşaat
+            Bilal Akbaş
           </span>
         </Link>
 

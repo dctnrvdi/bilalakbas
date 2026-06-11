@@ -19,22 +19,22 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Özkur Insaat | Insaat & Mimarlik',
-    template: '%s | Özkur Insaat',
+    default: 'Bilal Akbaş | Insaat & Mimarlik',
+    template: '%s | Bilal Akbaş',
   },
-  description: 'Özkur Insaat - guven uzerine insa edilmis, mukemmeliyetle teslim edilen konut ve ticari projeler.',
-  keywords: ['insaat', 'mimarlik', 'konut', 'ticari', 'ozkur insaat', 'istanbul'],
-  authors: [{ name: 'Özkur Insaat' }],
+  description: 'Bilal Akbaş - guven uzerine insa edilmis, mukemmeliyetle teslim edilen konut ve ticari projeler.',
+  keywords: ['insaat', 'mimarlik', 'konut', 'ticari', 'bilal akbaş', 'istanbul'],
+  authors: [{ name: 'Bilal Akbaş' }],
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    siteName: 'Özkur Insaat',
-    title: 'Özkur Insaat | Insaat & Mimarlik',
+    siteName: 'Bilal Akbaş',
+    title: 'Bilal Akbaş | Insaat & Mimarlik',
     description: 'Guven uzerine insa edilmis projeler.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Özkur Insaat',
+    title: 'Bilal Akbaş',
     description: 'Guven uzerine insa edilmis projeler.',
   },
   robots: {

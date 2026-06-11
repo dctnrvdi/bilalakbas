@@ -8,11 +8,11 @@ import type { Metadata } from 'next'
 // Dinamik Metadata yapısı
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Projelerimiz | Özkur İnşaat',
-    description: 'Özkur İnşaat tarafından hayata geçirilen tamamlanan ve devam eden projeleri inceleyin.',
+    title: 'Projelerimiz | Bilal Akbaş',
+    description: 'Bilal Akbaş tarafından hayata geçirilen tamamlanan ve devam eden projeleri inceleyin.',
     openGraph: {
-      title: 'Projelerimiz | Özkur İnşaat',
-      description: 'Özkur İnşaat tamamlanan ve devam eden projeler.',
+      title: 'Projelerimiz | Bilal Akbaş',
+      description: 'Bilal Akbaş tamamlanan ve devam eden projeler.',
     },
   }
 }

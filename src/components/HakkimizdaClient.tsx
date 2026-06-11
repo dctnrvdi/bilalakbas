@@ -119,7 +119,7 @@ export default function HakkimizdaClient() {
                     color: 'var(--text-primary)', marginBottom: '32px',
                   }}>10 Yıldan Fazla Deneyim</h2>
                   <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '24px' }}>
-                    2010 yılında İstanbul'da kurulan Özkur İnşaat, konut ve ticari inşaat alanında kalite ve güvenilirliğin sembolü haline geldi.
+                    2010 yılında İstanbul'da kurulan Bilal Akbaş, konut ve ticari inşaat alanında kalite ve güvenilirliğin sembolü haline geldi.
                   </p>
                   <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.8 }}>
                     Bugün 200'ü aşkın uzman kadromuzla, vizyonunuzu en yüksek standartta hayata geçirmeye devam ediyoruz.

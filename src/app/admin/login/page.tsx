@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
             fontSize: '28px', fontWeight: 500,
             letterSpacing: '0.12em', textTransform: 'uppercase',
             color: 'var(--text-primary)', marginBottom: '8px',
-          }}>Özkur İnşaat</p>
+          }}>Bilal Akbaş</p>
           <p style={{
             fontSize: '11px', fontWeight: 500,
             letterSpacing: '0.2em', textTransform: 'uppercase',
@@ -124,7 +124,7 @@ export default function AdminLoginPage() {
           textAlign: 'center', marginTop: '24px',
           fontSize: '12px', color: 'var(--text-muted)',
         }}>
-          © {new Date().getFullYear()} Özkur İnşaat
+          © {new Date().getFullYear()} Bilal Akbaş 
         </p>
       </div>
     </div>

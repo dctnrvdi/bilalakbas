@@ -160,7 +160,7 @@ export default function IletisimClient() {
                   {[
                     { label: 'Adres', lines: ['Maslak Mahallesi, Buyukdere Cad.', 'No:123 Kat:5', 'Sarıyer / Istanbul'] },
                     { label: 'Telefon', lines: ['+90 212 000 00 00', '+90 532 000 00 00'] },
-                    { label: 'E-posta', lines: ['info@ozkurinsaat.com', 'proje@ozkurinsaat.com'] },
+                    { label: 'E-posta', lines: ['info@bilalakbas.com', 'proje@bilalakbas.com'] },
                     { label: 'Calisma Saatleri', lines: ['Pazartesi - Cuma: 09:00 - 18:00', 'Cumartesi: 10:00 - 14:00'] },
                   ].map(item => (
                     <div key={item.label}>

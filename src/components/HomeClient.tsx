@@ -273,7 +273,7 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
         fontSize: 'clamp(100px, 16vw, 220px)', fontWeight: 300,
         color: 'transparent', WebkitTextStroke: '1px rgba(201,168,76,0.06)',
         pointerEvents: 'none', userSelect: 'none', whiteSpace: 'nowrap',
-      }}>ÖZKUR</div>
+      }}>BİLAL AKBAŞ</div>
     </>
   )}
 
