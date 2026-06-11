@@ -1,3 +1,6 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 
 export default function AdminLayout({
@@ -5,6 +8,13 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname()
+  const isLoginPage = pathname === '/admin/login'
+
+  if (isLoginPage) {
+    return <>{children}</>
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -17,6 +27,7 @@ export default function AdminLayout({
         marginLeft: '260px',
         padding: '40px',
         overflowX: 'hidden',
+        minHeight: '100vh',
       }}>
         {children}
       </main>

@@ -227,12 +227,11 @@ export default function ProjeDetayClient({
                       color: 'var(--text-muted)',
                     }}>{detail.label}</span>
                     <span style={{
-                      fontSize: '15px',
                       color: 'var(--text-primary)',
-                      fontFamily: detail.label === 'Yıl' || detail.label === 'Alan'
-                        ? 'var(--font-cormorant), serif' : 'inherit',
-                      fontSize: detail.label === 'Yıl' || detail.label === 'Alan'
-                        ? '20px' : '15px',
+                    fontFamily: detail.label === 'Yil' || detail.label === 'Alan'
+                    ? 'var(--font-cormorant), serif' : 'inherit',
+                    fontSize: detail.label === 'Yil' || detail.label === 'Alan'
+                    ? '20px' : '15px',
                     } as React.CSSProperties}>{detail.value}</span>
                   </div>
                 ))}
