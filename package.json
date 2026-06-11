@@ -2,7 +2,7 @@
   "name": "terrazola",
   "version": "0.1.0",
   "private": true,
-"scripts": {
+  "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -10,7 +10,6 @@
     "db:push": "prisma db push",
     "db:seed": "node prisma/seed.js"
   },
-  
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
     "@prisma/adapter-better-sqlite3": "^7.8.0",
@@ -35,6 +34,7 @@
     "@types/bcryptjs": "^2.4.6",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
