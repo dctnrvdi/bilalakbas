@@ -47,6 +47,11 @@ export default function AdminProjeForm({ mode, project }: Props) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
+  const parseImages = (images: string | undefined): string[] => {
+    if (!images) return []
+    try { return JSON.parse(images) } catch { return [] }
+  }
+
   const [form, setForm] = useState({
     title: project?.title || '',
     slug: project?.slug || '',
@@ -56,6 +61,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
     area: project?.area || '',
     description: project?.description || '',
     coverImage: project?.coverImage || '',
+    images: project?.images || '[]',
     featured: project?.featured || false,
     order: project?.order || 0,
   })
@@ -107,7 +113,6 @@ export default function AdminProjeForm({ mode, project }: Props) {
           ...form,
           year: Number(form.year),
           order: Number(form.order),
-          images: JSON.stringify([form.coverImage]),
         }),
       })
 
@@ -197,7 +202,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
               >
                 <option value="Konut">Konut</option>
                 <option value="Ticari">Ticari</option>
-                <option value="Lüks">Lüks</option>
+                <option value="Luks">Luks</option>
               </select>
             </div>
             <div>
@@ -257,6 +262,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
             />
           </div>
 
+          {/* Kapak Gorseli */}
           <div>
             <label style={labelStyle}>Kapak Gorseli</label>
             <MediaUpload
@@ -266,6 +272,62 @@ export default function AdminProjeForm({ mode, project }: Props) {
             />
           </div>
 
+          {/* Ic Gorseller */}
+          <div>
+            <label style={labelStyle}>Ic Gorseller (Proje Detay Sayfasi)</label>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {parseImages(form.images).map((img: string, i: number) => (
+                <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+                  <div style={{ flex: 1 }}>
+                    <MediaUpload
+                      value={img}
+                      onChange={url => {
+                        const imgs = parseImages(form.images)
+                        imgs[i] = url
+                        setForm(prev => ({ ...prev, images: JSON.stringify(imgs) }))
+                      }}
+                      accept="image"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const imgs = parseImages(form.images)
+                      imgs.splice(i, 1)
+                      setForm(prev => ({ ...prev, images: JSON.stringify(imgs) }))
+                    }}
+                    style={{
+                      background: 'none', border: '1px solid #e05a5a',
+                      color: '#e05a5a', padding: '8px 12px', cursor: 'pointer',
+                      fontSize: '12px', whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Sil
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  const imgs = parseImages(form.images)
+                  imgs.push('')
+                  setForm(prev => ({ ...prev, images: JSON.stringify(imgs) }))
+                }}
+                style={{
+                  background: 'none', border: '1px solid var(--border-subtle)',
+                  color: 'var(--text-secondary)', padding: '10px 16px',
+                  cursor: 'pointer', fontSize: '12px',
+                  transition: 'border-color 0.3s ease',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-subtle)')}
+              >
+                + Gorsel Ekle
+              </button>
+            </div>
+          </div>
+
+          {/* One Cikan */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <input
               type="checkbox"
