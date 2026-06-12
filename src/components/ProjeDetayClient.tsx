@@ -18,6 +18,8 @@ type Project = {
   order: number
 }
 
+type MediaItem = { url: string; type: 'image' | 'video' }
+
 function RevealSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -49,11 +51,20 @@ export default function ProjeDetayClient({
   project: Project
   related: Project[]
 }) {
-  const parseImages = (images: string): string[] => {
-    try { return JSON.parse(images) } catch { return [] }
+  const parseMedia = (images: string): MediaItem[] => {
+    try {
+      const parsed = JSON.parse(images)
+      return parsed
+        .map((item: any) =>
+          typeof item === 'string'
+            ? { url: item, type: 'image' as const }
+            : item
+        )
+        .filter((item: MediaItem) => item.url && item.url !== project.coverImage)
+    } catch { return [] }
   }
 
-  const images = parseImages(project.images).filter(Boolean)
+  const mediaItems = parseMedia(project.images)
 
   return (
     <main>
@@ -87,11 +98,11 @@ export default function ProjeDetayClient({
           <>
             <div style={{
               position: 'absolute', inset: 0,
-              background: `radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 55%), linear-gradient(135deg, #0A0C0F 0%, #111318 100%)`,
+              background: 'radial-gradient(ellipse at 60% 40%, rgba(201,168,76,0.08) 0%, transparent 55%), linear-gradient(135deg, #0A0C0F 0%, #111318 100%)',
             }} />
             <div style={{
               position: 'absolute', inset: 0,
-              backgroundImage: `linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px)`,
+              backgroundImage: 'linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px)',
               backgroundSize: '80px 80px',
               pointerEvents: 'none',
             }} />
@@ -144,24 +155,34 @@ export default function ProjeDetayClient({
         </div>
       </section>
 
-      {/* GORSEL GALERI */}
-      {images.length > 0 && (
+      {/* MEDYA GALERI */}
+      {mediaItems.length > 0 && (
         <section style={{ background: 'var(--dark-2)', padding: '2px 0' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: images.length === 1 ? '1fr' : images.length === 2 ? '1fr 1fr' : 'repeat(3, 1fr)',
+            gridTemplateColumns: mediaItems.length === 1 ? '1fr' : mediaItems.length === 2 ? '1fr 1fr' : 'repeat(3, 1fr)',
             gap: '2px',
           }}>
-            {images.map((img, i) => (
+            {mediaItems.map((item, i) => (
               <div key={i} style={{
-                aspectRatio: images.length === 1 ? '16/7' : '4/3',
+                aspectRatio: mediaItems.length === 1 ? '16/7' : '4/3',
                 overflow: 'hidden',
+                background: 'var(--dark-3)',
               }}>
-                <img
-                  src={img}
-                  alt={`${project.title} - ${i + 1}`}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
+                {item.type === 'video' ? (
+                  <video
+                    src={item.url}
+                    controls
+                    muted
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                ) : (
+                  <img
+                    src={item.url}
+                    alt={`${project.title} - ${i + 1}`}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                )}
               </div>
             ))}
           </div>
