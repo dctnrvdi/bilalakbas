@@ -7,15 +7,16 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
 type Props = {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
   try {
     const project = await prisma.project.findFirst({
-      where: { slug: params.slug },
+      where: { slug },
     })
-    if (!project) return { title: 'Proje Bulunamadı' }
+    if (!project) return { title: 'Proje Bulunamadi' }
     return {
       title: project.title,
       description: project.description,
@@ -32,12 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProjeDetayPage({ params }: Props) {
+  const { slug } = await params
   let project = null
   let related: any[] = []
 
   try {
     project = await prisma.project.findFirst({
-      where: { slug: params.slug },
+      where: { slug },
     })
   } catch (e) {
     console.error(e)
