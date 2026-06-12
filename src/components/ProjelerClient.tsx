@@ -203,37 +203,51 @@ export default function ProjelerClient({ projects }: { projects: Project[] }) {
                         if (info) info.style.transform = 'translateY(8px)'
                       }}
                     >
-                      <div className="proj-inner" style={{
-                        aspectRatio: '4/3',
-                        background: `
-                          radial-gradient(ellipse at ${(i % 3) * 33}% 60%,
-                            rgba(201,168,76,0.08) 0%, transparent 60%),
-                          linear-gradient(135deg, var(--dark-3) 0%, var(--dark-4) 100%)
-                        `,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
-                        position: 'relative',
-                      }}>
-                        <span style={{
-                          fontFamily: 'var(--font-cormorant), serif',
-                          fontSize: '88px', fontWeight: 300,
-                          color: 'rgba(201,168,76,0.07)',
-                          userSelect: 'none',
-                        }}>
-                          {String(i + 1).padStart(2, '0')}
-                        </span>
+<div className="proj-inner" style={{
+  aspectRatio: '4/3',
+  background: 'var(--dark-3)',
+  transition: 'transform 0.6s cubic-bezier(0.16,1,0.3,1)',
+  position: 'relative',
+  overflow: 'hidden',
+}}>
+  {project.coverImage ? (
+    <img
+      src={project.coverImage}
+      alt={project.title}
+      style={{
+        width: '100%', height: '100%',
+        objectFit: 'cover',
+        display: 'block',
+      }}
+    />
+  ) : (
+    <div style={{
+      width: '100%', height: '100%',
+      background: `radial-gradient(ellipse at ${(i % 3) * 33}% 60%, rgba(201,168,76,0.08) 0%, transparent 60%), linear-gradient(135deg, var(--dark-3) 0%, var(--dark-4) 100%)`,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+    }}>
+      <span style={{
+        fontFamily: 'var(--font-cormorant), serif',
+        fontSize: '88px', fontWeight: 300,
+        color: 'rgba(201,168,76,0.07)',
+        userSelect: 'none',
+      }}>
+        {String(i + 1).padStart(2, '0')}
+      </span>
+    </div>
+  )}
 
-                        {project.featured && (
-                          <div style={{
-                            position: 'absolute', top: '20px', left: '20px',
-                            padding: '4px 12px',
-                            background: 'var(--gold)',
-                            color: 'var(--dark)',
-                            fontSize: '10px', fontWeight: 600,
-                            letterSpacing: '0.12em', textTransform: 'uppercase',
-                          }}>Öne Çıkan</div>
-                        )}
-                      </div>
+  {project.featured && (
+    <div style={{
+      position: 'absolute', top: '20px', left: '20px',
+      padding: '4px 12px',
+      background: 'var(--gold)',
+      color: 'var(--dark)',
+      fontSize: '10px', fontWeight: 600,
+      letterSpacing: '0.12em', textTransform: 'uppercase',
+    }}>One Cikan</div>
+  )}
+</div>
 
                       <div style={{
                         position: 'absolute', bottom: 0, left: 0, right: 0,
