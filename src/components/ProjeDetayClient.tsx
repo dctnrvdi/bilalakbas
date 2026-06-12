@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Project = {
   id: number
@@ -30,7 +30,7 @@ export default function ProjeDetayClient({
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768)
+    const check = () => setIsMobile(window.innerWidth < 900)
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
@@ -51,10 +51,22 @@ export default function ProjeDetayClient({
 
   const mediaItems = parseMedia(project.images)
 
+  const descParagraphs = (project.description || '')
+    .split('\n\n')
+    .map(p => p.trim())
+    .filter(Boolean)
+
+  const details = [
+    { label: 'Kategori', value: project.category },
+    { label: 'Konum', value: project.location },
+    { label: 'Yil', value: String(project.year) },
+    { label: 'Alan', value: project.area },
+  ].filter(d => d.value)
+
   return (
     <main style={{ background: 'var(--dark)', minHeight: '100vh' }}>
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section style={{
         position: 'relative',
         height: '100vh',
@@ -116,7 +128,6 @@ export default function ProjeDetayClient({
           </h1>
         </div>
 
-        {/* Scroll hint */}
         <div style={{
           position: 'absolute', bottom: '32px', right: '40px',
           display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
@@ -127,45 +138,78 @@ export default function ProjeDetayClient({
         </div>
       </section>
 
-      {/* ── MAIN CONTENT — Sol sabit, Sag scroll ── */}
+      {/* MAIN CONTENT - 50/50 split, sol sticky sag scroll */}
       <section style={{
         display: 'grid',
-        gridTemplateColumns: isMobile ? '1fr' : '380px 1fr',
-        minHeight: '100vh',
+        gridTemplateColumns: isMobile ? '1fr' : '50% 50%',
         borderTop: '1px solid var(--border-subtle)',
       }}>
 
-        {/* SOL — Sabit bilgi paneli */}
+        {/* SOL - sticky info panel */}
         <div style={{
           position: isMobile ? 'relative' : 'sticky',
           top: isMobile ? 'auto' : '72px',
           height: isMobile ? 'auto' : 'calc(100vh - 72px)',
-          padding: isMobile ? '60px 24px' : '80px 48px',
           borderRight: isMobile ? 'none' : '1px solid var(--border-subtle)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
+          borderBottom: isMobile ? '1px solid var(--border-subtle)' : 'none',
           background: 'var(--dark-2)',
           overflowY: isMobile ? 'visible' : 'auto',
         }}>
-          <div>
+          <div style={{
+            padding: isMobile ? '56px 24px 40px' : '120px 64px 120px 48px',
+          }}>
+            {/* Eyebrow */}
             <p style={{
               fontSize: '10px', fontWeight: 600,
-              letterSpacing: '0.2em', textTransform: 'uppercase',
-              color: 'var(--gold)', marginBottom: '32px',
-            }}>Proje Detaylari</p>
+              letterSpacing: '0.25em', textTransform: 'uppercase',
+              color: 'var(--gold)', marginBottom: '14px',
+            }}>Proje</p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '48px' }}>
-              {[
-                { label: 'Kategori', value: project.category },
-                { label: 'Konum', value: project.location },
-                { label: 'Yil', value: String(project.year) },
-                { label: 'Alan', value: project.area },
-              ].filter(d => d.value).map((detail, i, arr) => (
+            {/* Buyuk baslik - kategori */}
+            <h2 style={{
+              fontFamily: 'var(--font-cormorant), serif',
+              fontSize: 'clamp(36px, 4vw, 56px)',
+              fontWeight: 300,
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              color: 'var(--text-primary)',
+              marginBottom: '56px',
+            }}>{project.category}</h2>
+
+            {/* Aciklama paragraflari */}
+            {descParagraphs.length > 0 && (
+              <div style={{ marginBottom: '56px' }}>
+                {descParagraphs.map((para, i) => (
+                  <p key={i} style={{
+                    fontSize: i === 0 ? '19px' : '15px',
+                    fontWeight: i === 0 ? 400 : 300,
+                    color: i === 0 ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    lineHeight: i === 0 ? 1.55 : 1.85,
+                    letterSpacing: i === 0 ? '-0.01em' : 0,
+                    marginBottom: i === 0 ? '32px' : '20px',
+                  }}>{para}</p>
+                ))}
+              </div>
+            )}
+
+            {/* Detaylar */}
+            <div style={{
+              marginBottom: '40px',
+              paddingTop: '32px',
+              borderTop: '1px solid var(--border-subtle)',
+            }}>
+              <p style={{
+                fontSize: '10px', fontWeight: 600,
+                letterSpacing: '0.25em', textTransform: 'uppercase',
+                color: 'var(--gold)', marginBottom: '20px',
+              }}>Detaylar</p>
+
+              {details.map((detail, i) => (
                 <div key={detail.label} style={{
-                  padding: '16px 0',
-                  borderBottom: i < arr.length - 1 ? '1px solid var(--border-subtle)' : 'none',
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  padding: '14px 0',
+                  borderBottom: i < details.length - 1 ? '1px solid var(--border-subtle)' : 'none',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'baseline',
+                  gap: '16px',
                 }}>
                   <span style={{
                     fontSize: '10px', fontWeight: 600,
@@ -173,33 +217,16 @@ export default function ProjeDetayClient({
                     color: 'var(--text-muted)',
                   }}>{detail.label}</span>
                   <span style={{
-                    fontSize: detail.label === 'Yil' || detail.label === 'Alan' ? '18px' : '14px',
+                    fontSize: detail.label === 'Yil' || detail.label === 'Alan' ? '20px' : '14px',
                     fontFamily: detail.label === 'Yil' || detail.label === 'Alan' ? 'var(--font-cormorant), serif' : 'inherit',
                     color: 'var(--text-primary)',
+                    textAlign: 'right',
                   }}>{detail.value}</span>
                 </div>
               ))}
             </div>
 
-            {project.description && (
-              <div>
-                <p style={{
-                  fontSize: '10px', fontWeight: 600,
-                  letterSpacing: '0.2em', textTransform: 'uppercase',
-                  color: 'var(--gold)', marginBottom: '16px',
-                }}>Hakkinda</p>
-                <p style={{
-                  fontSize: '15px', fontWeight: 300,
-                  color: 'var(--text-secondary)',
-                  lineHeight: 1.8,
-                }}>
-                  {project.description}
-                </p>
-              </div>
-            )}
-          </div>
-
-          <div style={{ paddingTop: '40px' }}>
+            {/* CTA */}
             <Link href="/iletisim" className="btn-gold" style={{ width: '100%', justifyContent: 'center' }}>
               Bilgi Al
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -209,12 +236,12 @@ export default function ProjeDetayClient({
           </div>
         </div>
 
-        {/* SAG — Scroll eden medya */}
+        {/* SAG - scroll eden medya */}
         <div style={{
-          padding: isMobile ? '40px 24px' : '80px 64px',
+          padding: isMobile ? '40px 24px' : '120px 64px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '4px',
+          gap: '6px',
           background: 'var(--dark)',
         }}>
           {mediaItems.length === 0 ? (
@@ -230,7 +257,6 @@ export default function ProjeDetayClient({
             mediaItems.map((item, i) => (
               <div key={i} style={{
                 width: '100%',
-                marginBottom: '4px',
                 overflow: 'hidden',
               }}>
                 {item.type === 'video' ? (
@@ -255,7 +281,7 @@ export default function ProjeDetayClient({
         </div>
       </section>
 
-      {/* ── RELATED ── */}
+      {/* RELATED */}
       {related.length > 0 && (
         <section style={{ padding: '120px 0', background: 'var(--dark-2)', borderTop: '1px solid var(--border-subtle)' }}>
           <div className="container-site">
@@ -330,7 +356,7 @@ export default function ProjeDetayClient({
                         fontSize: '10px', fontWeight: 500,
                         letterSpacing: '0.18em', textTransform: 'uppercase',
                         color: 'var(--gold)', marginBottom: '8px',
-                      }}>{rel.category} · {rel.year}</p>
+                      }}>{rel.category} {rel.year}</p>
                       <h3 style={{
                         fontFamily: 'var(--font-cormorant), serif',
                         fontSize: '20px', fontWeight: 400,
