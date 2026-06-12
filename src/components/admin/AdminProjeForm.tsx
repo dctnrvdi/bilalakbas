@@ -24,6 +24,8 @@ type Props = {
   project?: Project
 }
 
+type MediaItem = { url: string; type: 'image' | 'video' }
+
 const inputStyle: React.CSSProperties = {
   width: '100%',
   background: 'var(--dark-3)',
@@ -47,9 +49,16 @@ export default function AdminProjeForm({ mode, project }: Props) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const parseImages = (images: string | undefined): string[] => {
+  const parseMedia = (images: string | undefined): MediaItem[] => {
     if (!images) return []
-    try { return JSON.parse(images) } catch { return [] }
+    try {
+      const parsed = JSON.parse(images)
+      return parsed.map((item: any) =>
+        typeof item === 'string'
+          ? { url: item, type: 'image' as const }
+          : item
+      )
+    } catch { return [] }
   }
 
   const [form, setForm] = useState({
@@ -65,6 +74,12 @@ export default function AdminProjeForm({ mode, project }: Props) {
     featured: project?.featured || false,
     order: project?.order || 0,
   })
+
+  const mediaItems = parseMedia(form.images)
+
+  const updateMedia = (items: MediaItem[]) => {
+    setForm(prev => ({ ...prev, images: JSON.stringify(items) }))
+  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -132,13 +147,11 @@ export default function AdminProjeForm({ mode, project }: Props) {
     <div>
       <div style={{ marginBottom: '40px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-          <Link
-            href="/admin/projeler"
-            style={{
-              fontSize: '12px', color: 'var(--text-muted)',
-              textDecoration: 'none', letterSpacing: '0.08em',
-              transition: 'color 0.2s ease',
-            }}
+          <Link href="/admin/projeler" style={{
+            fontSize: '12px', color: 'var(--text-muted)',
+            textDecoration: 'none', letterSpacing: '0.08em',
+            transition: 'color 0.2s ease',
+          }}
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
           >
@@ -170,36 +183,25 @@ export default function AdminProjeForm({ mode, project }: Props) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div>
               <label style={labelStyle}>Baslik *</label>
-              <input
-                name="title" value={form.title}
-                onChange={handleTitleChange}
-                style={inputStyle}
+              <input name="title" value={form.title} onChange={handleTitleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              />
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
             <div>
               <label style={labelStyle}>Slug *</label>
-              <input
-                name="slug" value={form.slug}
-                onChange={handleChange}
-                style={inputStyle}
+              <input name="slug" value={form.slug} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              />
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div>
               <label style={labelStyle}>Kategori *</label>
-              <select
-                name="category" value={form.category}
-                onChange={handleChange}
+              <select name="category" value={form.category} onChange={handleChange}
                 style={{ ...inputStyle, cursor: 'pointer' }}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              >
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}>
                 <option value="Konut">Konut</option>
                 <option value="Ticari">Ticari</option>
                 <option value="Luks">Luks</option>
@@ -207,64 +209,44 @@ export default function AdminProjeForm({ mode, project }: Props) {
             </div>
             <div>
               <label style={labelStyle}>Konum</label>
-              <input
-                name="location" value={form.location}
-                onChange={handleChange}
-                style={inputStyle}
+              <input name="location" value={form.location} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              />
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
             <div>
               <label style={labelStyle}>Yil</label>
-              <input
-                name="year" type="number" value={form.year}
-                onChange={handleChange}
-                style={inputStyle}
+              <input name="year" type="number" value={form.year} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              />
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
             <div>
               <label style={labelStyle}>Alan (m2)</label>
-              <input
-                name="area" value={form.area}
-                onChange={handleChange}
-                style={inputStyle}
+              <input name="area" value={form.area} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              />
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
             <div>
               <label style={labelStyle}>Sira</label>
-              <input
-                name="order" type="number" value={form.order}
-                onChange={handleChange}
-                style={inputStyle}
+              <input name="order" type="number" value={form.order} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-              />
+                onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
           </div>
 
           <div>
             <label style={labelStyle}>Aciklama</label>
-            <textarea
-              name="description" value={form.description}
-              onChange={handleChange}
-              rows={4}
+            <textarea name="description" value={form.description} onChange={handleChange} rows={4}
               style={{ ...inputStyle, resize: 'vertical' }}
               onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
-              onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}
-            />
+              onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
           </div>
 
           {/* Kapak Gorseli */}
           <div>
-            <label style={labelStyle}>Kapak Gorseli</label>
+            <label style={labelStyle}>Kapak Gorseli (Hero Fotograf)</label>
             <MediaUpload
               value={form.coverImage}
               onChange={url => setForm(prev => ({ ...prev, coverImage: url }))}
@@ -272,71 +254,96 @@ export default function AdminProjeForm({ mode, project }: Props) {
             />
           </div>
 
-          {/* Ic Gorseller */}
+          {/* Ic Medya */}
           <div>
-            <label style={labelStyle}>Ic Gorseller (Proje Detay Sayfasi)</label>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {parseImages(form.images).map((img: string, i: number) => (
-                <div key={i} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
-                  <div style={{ flex: 1 }}>
-                    <MediaUpload
-                      value={img}
-                      onChange={url => {
-                        const imgs = parseImages(form.images)
-                        imgs[i] = url
-                        setForm(prev => ({ ...prev, images: JSON.stringify(imgs) }))
+            <label style={labelStyle}>Ic Gorseller ve Videolar (Proje Detay Sayfasi)</label>
+            <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '16px' }}>
+              Gorsel veya video ekleyebilirsiniz. Sirayla goruntulenecektir.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              {mediaItems.map((item, i) => (
+                <div key={i} style={{
+                  background: 'var(--dark-3)',
+                  border: '1px solid var(--border-subtle)',
+                  padding: '16px',
+                  display: 'flex', flexDirection: 'column', gap: '12px',
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{
+                      fontSize: '11px', fontWeight: 600,
+                      letterSpacing: '0.1em', textTransform: 'uppercase',
+                      color: item.type === 'video' ? 'var(--gold)' : 'var(--text-muted)',
+                    }}>
+                      {item.type === 'video' ? 'Video' : 'Gorsel'} {i + 1}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const items = [...mediaItems]
+                        items.splice(i, 1)
+                        updateMedia(items)
                       }}
-                      accept="image"
-                    />
+                      style={{
+                        background: 'none', border: '1px solid #e05a5a',
+                        color: '#e05a5a', padding: '4px 10px', cursor: 'pointer',
+                        fontSize: '11px',
+                      }}
+                    >
+                      Sil
+                    </button>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const imgs = parseImages(form.images)
-                      imgs.splice(i, 1)
-                      setForm(prev => ({ ...prev, images: JSON.stringify(imgs) }))
+                  <MediaUpload
+                    value={item.url}
+                    onChange={url => {
+                      const items = [...mediaItems]
+                      items[i] = { ...items[i], url }
+                      updateMedia(items)
                     }}
-                    style={{
-                      background: 'none', border: '1px solid #e05a5a',
-                      color: '#e05a5a', padding: '8px 12px', cursor: 'pointer',
-                      fontSize: '12px', whiteSpace: 'nowrap',
-                    }}
-                  >
-                    Sil
-                  </button>
+                    accept={item.type}
+                  />
                 </div>
               ))}
-              <button
-                type="button"
-                onClick={() => {
-                  const imgs = parseImages(form.images)
-                  imgs.push('')
-                  setForm(prev => ({ ...prev, images: JSON.stringify(imgs) }))
-                }}
-                style={{
-                  background: 'none', border: '1px solid var(--border-subtle)',
-                  color: 'var(--text-secondary)', padding: '10px 16px',
-                  cursor: 'pointer', fontSize: '12px',
-                  transition: 'border-color 0.3s ease',
-                }}
-                onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-subtle)')}
-              >
-                + Gorsel Ekle
-              </button>
+
+              <div style={{ display: 'flex', gap: '12px' }}>
+                <button
+                  type="button"
+                  onClick={() => updateMedia([...mediaItems, { url: '', type: 'image' }])}
+                  style={{
+                    flex: 1, background: 'none',
+                    border: '1px solid var(--border-subtle)',
+                    color: 'var(--text-secondary)', padding: '12px',
+                    cursor: 'pointer', fontSize: '12px',
+                    transition: 'border-color 0.3s ease',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-subtle)')}
+                >
+                  + Gorsel Ekle
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updateMedia([...mediaItems, { url: '', type: 'video' }])}
+                  style={{
+                    flex: 1, background: 'none',
+                    border: '1px solid var(--border-subtle)',
+                    color: 'var(--gold)', padding: '12px',
+                    cursor: 'pointer', fontSize: '12px',
+                    transition: 'border-color 0.3s ease',
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-subtle)')}
+                >
+                  + Video Ekle
+                </button>
+              </div>
             </div>
           </div>
 
           {/* One Cikan */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <input
-              type="checkbox"
-              name="featured"
-              id="featured"
-              checked={form.featured}
-              onChange={handleChange}
-              style={{ width: '16px', height: '16px', accentColor: 'var(--gold)', cursor: 'pointer' }}
-            />
+            <input type="checkbox" name="featured" id="featured"
+              checked={form.featured} onChange={handleChange}
+              style={{ width: '16px', height: '16px', accentColor: 'var(--gold)', cursor: 'pointer' }} />
             <label htmlFor="featured" style={{
               fontSize: '13px', color: 'var(--text-secondary)', cursor: 'pointer',
             }}>
@@ -344,25 +351,14 @@ export default function AdminProjeForm({ mode, project }: Props) {
             </label>
           </div>
 
-          {error && (
-            <p style={{ fontSize: '13px', color: '#e05a5a' }}>{error}</p>
-          )}
+          {error && <p style={{ fontSize: '13px', color: '#e05a5a' }}>{error}</p>}
 
           <div style={{ display: 'flex', gap: '12px', paddingTop: '8px' }}>
-            <button
-              onClick={handleSubmit}
-              disabled={loading}
-              className="btn-gold"
-              style={{
-                opacity: loading ? 0.7 : 1,
-                cursor: loading ? 'not-allowed' : 'pointer',
-              }}
-            >
+            <button onClick={handleSubmit} disabled={loading} className="btn-gold"
+              style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
               {loading ? 'Kaydediliyor...' : mode === 'create' ? 'Projeyi Kaydet' : 'Degisiklikleri Kaydet'}
             </button>
-            <Link href="/admin/projeler" className="btn-dark">
-              Iptal
-            </Link>
+            <Link href="/admin/projeler" className="btn-dark">Iptal</Link>
           </div>
         </div>
       </div>
