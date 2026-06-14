@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation'
 
 const navLinks = [
   { href: '/', label: 'Ana Sayfa' },
-  { href: '/hakkimizda', label: 'Hakkimizda' },
+  { href: '/hakkimizda', label: 'Hakkımızda' },
   { href: '/projeler', label: 'Projeler' },
-  { href: '/iletisim', label: 'Iletisim' },
+  { href: '/iletisim', label: 'İletişim' },
 ]
 
 export default function Navbar() {
