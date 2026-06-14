@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -19,22 +20,22 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Bilal Akbaş | Insaat & Mimarlik',
-    template: '%s | Bilal Akbaş',
+    default: 'Bilal Akbas | Insaat & Mimarlik',
+    template: '%s | Bilal Akbas',
   },
-  description: 'Bilal Akbaş - guven uzerine insa edilmis, mukemmeliyetle teslim edilen konut ve ticari projeler.',
-  keywords: ['insaat', 'mimarlik', 'konut', 'ticari', 'bilal akbaş', 'istanbul'],
-  authors: [{ name: 'Bilal Akbaş' }],
+  description: 'Bilal Akbas - guven uzerine insa edilmis, mukemmeliyetle teslim edilen konut ve ticari projeler.',
+  keywords: ['insaat', 'mimarlik', 'konut', 'ticari', 'bilal akbas', 'istanbul'],
+  authors: [{ name: 'Bilal Akbas' }],
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    siteName: 'Bilal Akbaş',
-    title: 'Bilal Akbaş | Insaat & Mimarlik',
+    siteName: 'Bilal Akbas',
+    title: 'Bilal Akbas | Insaat & Mimarlik',
     description: 'Guven uzerine insa edilmis projeler.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bilal Akbaş',
+    title: 'Bilal Akbas',
     description: 'Guven uzerine insa edilmis projeler.',
   },
   robots: {
@@ -50,7 +51,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr" className={`${cormorant.variable} ${dmSans.variable}`}>
-      <body className="noise">{children}</body>
+      <body className="noise">
+        {children}
+        <Analytics />
+      </body>
     </html>
   )
 }
