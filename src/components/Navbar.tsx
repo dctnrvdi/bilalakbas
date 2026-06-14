@@ -6,15 +6,16 @@ import { usePathname } from 'next/navigation'
 
 const navLinks = [
   { href: '/', label: 'Ana Sayfa' },
-  { href: '/hakkimizda', label: 'Hakkımızda' },
+  { href: '/hakkimizda', label: 'Hakkimizda' },
   { href: '/projeler', label: 'Projeler' },
-  { href: '/iletisim', label: 'İletişim' },
+  { href: '/iletisim', label: 'Iletisim' },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [logoUrl, setLogoUrl] = useState<string | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -30,6 +31,15 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
+
+  useEffect(() => {
+    fetch('/api/ayarlar')
+      .then(r => r.json())
+      .then(data => {
+        if (data.logo_url) setLogoUrl(data.logo_url)
+      })
+      .catch(() => {})
+  }, [])
 
   return (
     <>
@@ -49,16 +59,24 @@ export default function Navbar() {
       }}>
         {/* Logo */}
         <Link href="/" style={{ textDecoration: 'none' }}>
-          <span style={{
-            fontFamily: 'var(--font-cormorant), serif',
-            fontSize: '20px',
-            fontWeight: 500,
-            color: '#F0EDE8',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
-          }}>
-            Bilal Akbaş
-          </span>
+          {logoUrl ? (
+            <img
+              src={logoUrl}
+              alt="Logo"
+              style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }}
+            />
+          ) : (
+            <span style={{
+              fontFamily: 'var(--font-cormorant), serif',
+              fontSize: '20px',
+              fontWeight: 500,
+              color: '#F0EDE8',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+            }}>
+              Bilal Akbas
+            </span>
+          )}
         </Link>
 
         {/* Desktop Links */}
