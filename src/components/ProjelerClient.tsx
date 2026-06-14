@@ -245,7 +245,7 @@ export default function ProjelerClient({ projects }: { projects: Project[] }) {
       color: 'var(--dark)',
       fontSize: '10px', fontWeight: 600,
       letterSpacing: '0.12em', textTransform: 'uppercase',
-    }}>One Cikan</div>
+    }}>Öne Çıkan</div>
   )}
 </div>
 

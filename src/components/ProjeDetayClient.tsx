@@ -301,9 +301,9 @@ export default function ProjeDetayClient({
                   fontSize: 'clamp(28px, 4vw, 48px)',
                   fontWeight: 300, lineHeight: 1.1,
                   color: 'var(--text-primary)',
-                }}>Ilgini Cekebilir</h2>
+                }}>İlginizi Çekebilir</h2>
               </div>
-              <Link href="/projeler" className="btn-dark">Tum Projeler</Link>
+              <Link href="/projeler" className="btn-dark">Tüm Projeler</Link>
             </div>
 
             <div style={{
