@@ -14,17 +14,12 @@
   --text-muted: #5C5850;
   --border: rgba(201, 168, 76, 0.15);
   --border-subtle: rgba(240, 237, 232, 0.08);
+  --navbar-height: 72px;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--dark);
@@ -40,9 +35,7 @@ body {
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
 
-.font-display {
-  font-family: var(--font-cormorant), serif;
-}
+.font-display { font-family: var(--font-cormorant), serif; }
 
 .gold-line::after {
   content: '';
@@ -57,12 +50,10 @@ body {
   from { opacity: 0; transform: translateY(32px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes slideInLeft {
   from { opacity: 0; transform: translateX(-24px); }
   to { opacity: 1; transform: translateX(0); }
@@ -79,96 +70,69 @@ body {
 .delay-500 { animation-delay: 0.5s; }
 .delay-600 { animation-delay: 0.6s; }
 
-.hover-line {
-  position: relative;
-  display: inline-block;
-}
+.hover-line { position: relative; display: inline-block; }
 .hover-line::after {
   content: '';
   position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 1px;
+  bottom: -2px; left: 0;
+  width: 0; height: 1px;
   background: var(--gold);
   transition: width 0.3s ease;
 }
-.hover-line:hover::after {
-  width: 100%;
-}
+.hover-line:hover::after { width: 100%; }
 
 .btn-gold {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   padding: 14px 32px;
   background: transparent;
   border: 1px solid var(--gold);
   color: var(--gold);
   font-family: var(--font-dm-sans), sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s ease; text-decoration: none;
 }
-.btn-gold:hover {
-  background: var(--gold);
-  color: var(--dark);
-}
+.btn-gold:hover { background: var(--gold); color: var(--dark); }
 
 .btn-dark {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   padding: 14px 32px;
   background: var(--dark-4);
   border: 1px solid var(--border-subtle);
   color: var(--text-primary);
   font-family: var(--font-dm-sans), sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s ease; text-decoration: none;
 }
-.btn-dark:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-}
+.btn-dark:hover { border-color: var(--gold); color: var(--gold); }
 
-.section-pad {
-  padding: 120px 0;
-}
+.section-pad { padding: 120px 0; }
 
 .container-site {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
+  width: 100%; max-width: 1280px;
+  margin: 0 auto; padding: 0 40px;
 }
 
 .noise::before {
   content: '';
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 9999;
-  opacity: 0.4;
+  z-index: 9999; opacity: 0.4;
 }
 
+/* ── NAVBAR SAFE AREA ── */
+/* iOS notch / Dynamic Island icin */
+.navbar-safe {
+  /* Fallback */
+  padding-top: 20px;
+  /* env() destekliyorsa notch yuksekligi + padding */
+  padding-top: max(20px, env(safe-area-inset-top, 0px));
+}
+
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
   .section-pad { padding: 80px 0; }
   .container-site { padding: 0 24px; }
-}
-
-/* iOS safe area fix — navbar notch/dynamic island */
-.navbar-safe {
-  padding-top: 16px;
-  padding-top: max(16px, env(safe-area-inset-top));
 }
