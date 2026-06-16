@@ -56,7 +56,7 @@ export default function AdminProjelerClient({ projects }: { projects: Project[] 
             color: 'var(--text-primary)',
           }}>Projeler</h1>
         </div>
-        <Link href="/admin/projeler/yeni" className="btn-gold" style={{ fontSize: '12px', padding: '12px 24px' }}>
+        <Link href="/studio/projeler/yeni" className="btn-gold" style={{ fontSize: '12px', padding: '12px 24px' }}>
           + Yeni Proje Ekle
         </Link>
       </div>
@@ -152,7 +152,7 @@ export default function AdminProjelerClient({ projects }: { projects: Project[] 
               {/* Actions */}
               <div style={{ display: 'flex', gap: '8px' }}>
                 <Link
-                  href={`/admin/projeler/${project.id}`}
+                  href={`/studio/projeler/${project.id}`}
                   style={{
                     padding: '6px 14px',
                     background: 'transparent',

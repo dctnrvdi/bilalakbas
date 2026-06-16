@@ -31,9 +31,9 @@ export default function AdminDashboardClient({ projectCount, messageCount, unrea
         marginBottom: '48px',
       }}>
         {[
-          { label: 'Toplam Proje', value: projectCount, href: '/admin/projeler', color: 'var(--gold)' },
-          { label: 'Toplam Mesaj', value: messageCount, href: '/admin/mesajlar', color: 'var(--text-primary)' },
-          { label: 'Okunmamış', value: unreadCount, href: '/admin/mesajlar', color: '#e05a5a' },
+          { label: 'Toplam Proje', value: projectCount, href: '/studio/projeler', color: 'var(--gold)' },
+          { label: 'Toplam Mesaj', value: messageCount, href: '/studio/mesajlar', color: 'var(--text-primary)' },
+          { label: 'Okunmamış', value: unreadCount, href: '/studio/mesajlar', color: '#e05a5a' },
         ].map(stat => (
           <Link key={stat.label} href={stat.href} style={{ textDecoration: 'none' }}>
             <div
@@ -69,10 +69,10 @@ export default function AdminDashboardClient({ projectCount, messageCount, unrea
           color: 'var(--text-muted)', marginBottom: '16px',
         }}>Hızlı İşlemler</p>
         <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          <Link href="/admin/projeler/yeni" className="btn-gold" style={{ fontSize: '12px', padding: '12px 24px' }}>
+          <Link href="/studio/projeler/yeni" className="btn-gold" style={{ fontSize: '12px', padding: '12px 24px' }}>
             + Yeni Proje Ekle
           </Link>
-          <Link href="/admin/mesajlar" className="btn-dark" style={{ fontSize: '12px', padding: '12px 24px' }}>
+          <Link href="/studio/mesajlar" className="btn-dark" style={{ fontSize: '12px', padding: '12px 24px' }}>
             Mesajları Gör
           </Link>
           <Link href="/" className="btn-dark" style={{ fontSize: '12px', padding: '12px 24px' }}>

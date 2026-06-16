@@ -132,7 +132,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
       })
 
       if (res.ok) {
-        window.location.href = '/admin/projeler'
+        window.location.href = '/studio/projeler'
       } else {
         const data = await res.json()
         setError(data.error || 'Bir hata olustu.')
@@ -147,7 +147,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
     <div>
       <div style={{ marginBottom: '40px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-          <Link href="/admin/projeler" style={{
+          <Link href="/studio/projeler" style={{
             fontSize: '12px', color: 'var(--text-muted)',
             textDecoration: 'none', letterSpacing: '0.08em',
             transition: 'color 0.2s ease',
@@ -358,7 +358,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
               style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
               {loading ? 'Kaydediliyor...' : mode === 'create' ? 'Projeyi Kaydet' : 'Degisiklikleri Kaydet'}
             </button>
-            <Link href="/admin/projeler" className="btn-dark">Iptal</Link>
+            <Link href="/studio/projeler" className="btn-dark">Iptal</Link>
           </div>
         </div>
       </div>

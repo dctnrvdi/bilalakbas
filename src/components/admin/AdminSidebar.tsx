@@ -6,7 +6,7 @@ import { signOut } from 'next-auth/react'
 
 const navItems = [
   {
-    href: '/admin',
+    href: '/studio',
     label: 'Dashboard',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -18,7 +18,7 @@ const navItems = [
     ),
   },
   {
-  href: '/admin/ayarlar',
+  href: '/studio/ayarlar',
   label: 'Site Ayarları',
   icon: (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -28,7 +28,7 @@ const navItems = [
   ),
 },
   {
-    href: '/admin/projeler',
+    href: '/studio/projeler',
     label: 'Projeler',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -38,7 +38,7 @@ const navItems = [
     ),
   },
   {
-    href: '/admin/mesajlar',
+    href: '/studio/mesajlar',
     label: 'Mesajlar',
     icon: (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
@@ -87,7 +87,7 @@ export default function AdminSidebar() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {navItems.map(item => {
             const isActive = pathname === item.href ||
-              (item.href !== '/admin' && pathname.startsWith(item.href))
+              (item.href !== '/studio' && pathname.startsWith(item.href))
             return (
               <Link
                 key={item.href}
@@ -151,7 +151,7 @@ export default function AdminSidebar() {
           Siteye Dön
         </Link>
         <button
-          onClick={() => signOut({ callbackUrl: '/admin/login' })}
+          onClick={() => signOut({ callbackUrl: '/studio/login' })}
           style={{
             display: 'flex', alignItems: 'center', gap: '12px',
             width: '100%',
