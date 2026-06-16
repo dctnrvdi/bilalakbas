@@ -128,7 +128,7 @@ export default function Preloader() {
           fontFamily: 'var(--font-dm-sans), sans-serif',
           marginBottom: '64px',
           opacity: 0.8,
-        }}>Mimarlık & İnşaat</p>
+        }}>Mimarlık & Tasarım</p>
 
         {/* Progress bar */}
         <div style={{
@@ -176,7 +176,7 @@ export default function Preloader() {
           fontFamily: 'var(--font-dm-sans), sans-serif',
           lineHeight: 1.8,
         }}>
-          Guven · Kalite<br />Mukemmellik
+          Güven · Kalite<br />Mükemmellik
         </p>
         <p style={{
           fontSize: '9px',
