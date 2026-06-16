@@ -11,10 +11,11 @@ const navLinks = [
   { href: '/iletisim', label: 'İletişim' },
 ]
 
-export default function Navbar({ logoUrl }: { logoUrl?: string | null }) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [logoUrl, setLogoUrl] = useState<string | null | undefined>(undefined)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -31,35 +32,42 @@ export default function Navbar({ logoUrl }: { logoUrl?: string | null }) {
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
+  useEffect(() => {
+    fetch('/api/ayarlar')
+      .then(r => r.json())
+      .then(data => setLogoUrl(data.logo_url || null))
+      .catch(() => setLogoUrl(null))
+  }, [])
+
   const bgColor = isMobile
     ? 'rgba(10,12,15,0.98)'
     : scrolled ? 'rgba(10,12,15,0.92)' : 'rgba(10,12,15,0.4)'
 
-  const paddingV = scrolled ? '16px' : '28px'
-
   return (
     <>
-      <nav
-        className="navbar-safe"
-        style={{
-          position: 'fixed',
-          top: 0, left: 0, right: 0,
-          zIndex: 200,
-          paddingBottom: paddingV,
-          paddingLeft: isMobile ? '24px' : '40px',
-          paddingRight: isMobile ? '24px' : '40px',
-          background: bgColor,
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          borderBottom: '1px solid rgba(201,168,76,0.08)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          transition: 'background 0.4s ease, padding 0.4s ease',
-        }}
-      >
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          {logoUrl ? (
+      <nav className="navbar-safe" style={{
+        position: 'fixed',
+        top: 0, left: 0, right: 0,
+        zIndex: 200,
+        paddingBottom: scrolled ? '16px' : '28px',
+        paddingLeft: isMobile ? '24px' : '40px',
+        paddingRight: isMobile ? '24px' : '40px',
+        background: bgColor,
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(201,168,76,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        transition: 'background 0.4s ease, padding 0.4s ease',
+      }}>
+
+        {/* Logo — undefined iken hicbir sey gosterme, null ise yazi, string ise gorsel */}
+        <Link href="/" style={{ textDecoration: 'none', minWidth: '80px', minHeight: '32px', display: 'flex', alignItems: 'center' }}>
+          {logoUrl === undefined ? (
+            // Fetch bitmedi — bos tut, flash yok
+            <span style={{ display: 'block', width: '80px', height: '32px' }} />
+          ) : logoUrl ? (
             <img src={logoUrl} alt="Logo" style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }} />
           ) : (
             <span style={{
