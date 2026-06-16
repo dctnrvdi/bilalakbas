@@ -81,7 +81,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <h3 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '26px', fontWeight: 400, color: 'var(--text-primary)', marginBottom: '6px', lineHeight: 1.2 }}>{project.title}</h3>
             <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>{project.location}</p>
             <div style={{ marginTop: '20px', display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--gold)', fontSize: '12px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-              <span>Incele</span>
+              <span>İncele</span>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </div>
           </div>
@@ -188,7 +188,7 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
                 Projelerimiz
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Link>
-              <Link href="/iletisim" className="btn-dark">Iletisime Gec</Link>
+              <Link href="/iletisim" className="btn-dark">İletişime Geç</Link>
             </div>
           </div>
         </div>

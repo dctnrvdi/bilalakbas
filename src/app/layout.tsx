@@ -50,7 +50,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="tr" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="tr" className={`${cormorant.variable} ${dmSans.variable}`} style={{ scrollbarGutter: 'stable' }}>
+       <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  </head>
       <body className="noise">
         {children}
         <Analytics />
