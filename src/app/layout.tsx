@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { prisma } from '@/lib/prisma'
+import Navbar from '@/components/Navbar'
+import Preloader from '@/components/Preloader'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -54,6 +56,7 @@ async function getSettings(): Promise<Record<string, string>> {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const settings = await getSettings()
   const faviconUrl = settings.favicon_url || null
+  const logoUrl = settings.logo_url || null
 
   return (
     <html lang="tr" className={`${cormorant.variable} ${dmSans.variable}`}>
@@ -62,6 +65,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {faviconUrl && <link rel="icon" href={faviconUrl} />}
       </head>
       <body className="noise">
+        <Preloader />
+        <Navbar logoUrl={logoUrl} />
         {children}
         <Analytics />
       </body>

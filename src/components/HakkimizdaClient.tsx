@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
-import Navbar from '@/components/Navbar'
+
 import Footer from '@/components/Footer'
 
 function RevealSection({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
@@ -71,7 +71,7 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
 
   return (
     <>
-      <Navbar />
+
       <main>
         {/* HERO */}
         <section style={{

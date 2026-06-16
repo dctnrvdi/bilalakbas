@@ -11,11 +11,10 @@ const navLinks = [
   { href: '/iletisim', label: 'İletişim' },
 ]
 
-export default function Navbar() {
+export default function Navbar({ logoUrl }: { logoUrl?: string | null }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [logoUrl, setLogoUrl] = useState<string | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
@@ -32,14 +31,6 @@ export default function Navbar() {
 
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
-  useEffect(() => {
-    fetch('/api/ayarlar')
-      .then(r => r.json())
-      .then(data => { if (data.logo_url) setLogoUrl(data.logo_url) })
-      .catch(() => {})
-  }, [])
-
-  // Mobilde her zaman tam opak, desktop'ta scroll'a gore
   const bgColor = isMobile
     ? 'rgba(10,12,15,0.98)'
     : scrolled ? 'rgba(10,12,15,0.92)' : 'rgba(10,12,15,0.4)'
@@ -53,7 +44,7 @@ export default function Navbar() {
         style={{
           position: 'fixed',
           top: 0, left: 0, right: 0,
-          zIndex: 100,
+          zIndex: 200,
           paddingBottom: paddingV,
           paddingLeft: isMobile ? '24px' : '40px',
           paddingRight: isMobile ? '24px' : '40px',
@@ -67,7 +58,6 @@ export default function Navbar() {
           transition: 'background 0.4s ease, padding 0.4s ease',
         }}
       >
-        {/* Logo */}
         <Link href="/" style={{ textDecoration: 'none' }}>
           {logoUrl ? (
             <img src={logoUrl} alt="Logo" style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }} />
@@ -80,7 +70,6 @@ export default function Navbar() {
           )}
         </Link>
 
-        {/* Desktop Links */}
         {!isMobile && (
           <div style={{ display: 'flex', gap: '40px', alignItems: 'center' }}>
             {navLinks.map((link) => (
@@ -98,7 +87,6 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Mobile hamburger */}
         {isMobile && (
           <button onClick={() => setMenuOpen(!menuOpen)} style={{
             background: 'none', border: 'none', cursor: 'pointer',
@@ -119,10 +107,9 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* Mobile Menu */}
       {isMobile && (
         <div style={{
-          position: 'fixed', inset: 0, zIndex: 99,
+          position: 'fixed', inset: 0, zIndex: 199,
           background: 'rgba(10,12,15,0.97)',
           display: 'flex', flexDirection: 'column',
           alignItems: 'center', justifyContent: 'center', gap: '40px',
