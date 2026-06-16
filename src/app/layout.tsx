@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { prisma } from '@/lib/prisma'
 import './globals.css'
 
 const cormorant = Cormorant_Garamond({
@@ -38,22 +39,28 @@ export const metadata: Metadata = {
     title: 'Bilal Akbas',
     description: 'Guven uzerine insa edilmis projeler.',
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+async function getSettings(): Promise<Record<string, string>> {
+  try {
+    const settings = await prisma.siteSettings.findMany()
+    const map: Record<string, string> = {}
+    settings.forEach(s => { map[s.key] = s.value })
+    return map
+  } catch { return {} }
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSettings()
+  const faviconUrl = settings.favicon_url || null
+
   return (
-    <html lang="tr" className={`${cormorant.variable} ${dmSans.variable}`} style={{ scrollbarGutter: 'stable' }}>
-       <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  </head>
+    <html lang="tr" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        {faviconUrl && <link rel="icon" href={faviconUrl} />}
+      </head>
       <body className="noise">
         {children}
         <Analytics />

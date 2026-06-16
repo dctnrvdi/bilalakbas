@@ -257,36 +257,56 @@ export default function AdminAyarlarClient({
         </div>
 
         {/* About Section */}
-        <div style={{
-          background: 'var(--dark-2)',
-          border: '1px solid var(--border-subtle)',
-          padding: '32px',
-        }}>
-          <p style={sectionTitle}>Hakkimizda</p>
+        {/* Hakkimizda Sayfasi */}
+        <div style={{ background: 'var(--dark-2)', border: '1px solid var(--border-subtle)', padding: '32px' }}>
+          <p style={sectionTitle}>Hakkimizda Sayfasi</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <div>
-              <label style={labelStyle}>Baslik</label>
-              <input
-                name="about_title"
-                value={form.about_title}
-                onChange={handleChange}
-                style={inputStyle}
-                onFocus={focusGold}
-                onBlur={blurSubtle}
-              />
+
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Hero Baslik</p>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
+              <div><label style={labelStyle}>Satir 1</label><input name="about_hero_title1" value={(form as any).about_hero_title1 || ''} onChange={handleChange} placeholder="Insaati Bir" style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+              <div><label style={labelStyle}>Satir 2 (altin italic)</label><input name="about_hero_title2" value={(form as any).about_hero_title2 || ''} onChange={handleChange} placeholder="Sanat Olarak" style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+              <div><label style={labelStyle}>Satir 3</label><input name="about_hero_title3" value={(form as any).about_hero_title3 || ''} onChange={handleChange} placeholder="Goruyoruz." style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
             </div>
-            <div>
-              <label style={labelStyle}>Ana Metin</label>
-              <textarea
-                name="about_text"
-                value={form.about_text}
-                onChange={handleChange}
-                rows={5}
-                style={{ ...inputStyle, resize: 'vertical' }}
-                onFocus={focusGold}
-                onBlur={blurSubtle}
-              />
-            </div>
+
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '8px' }}>Hikayemiz</p>
+            <div><label style={labelStyle}>Baslik</label><input name="about_story_title" value={(form as any).about_story_title || ''} onChange={handleChange} placeholder="10 Yildan Fazla Deneyim" style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+            <div><label style={labelStyle}>Paragraf 1</label><textarea name="about_story_text1" value={(form as any).about_story_text1 || ''} onChange={handleChange} rows={3} style={{ ...inputStyle, resize: 'vertical' }} onFocus={focusGold} onBlur={blurSubtle} /></div>
+            <div><label style={labelStyle}>Paragraf 2</label><textarea name="about_story_text2" value={(form as any).about_story_text2 || ''} onChange={handleChange} rows={3} style={{ ...inputStyle, resize: 'vertical' }} onFocus={focusGold} onBlur={blurSubtle} /></div>
+
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '8px' }}>Istatistikler (2x2)</p>
+            {[1,2,3,4].map(n => (
+              <div key={n} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px' }}>
+                <div><label style={labelStyle}>Deger {n}</label><input name={`about_stat${n}_value`} value={(form as any)[`about_stat${n}_value`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+                <div><label style={labelStyle}>Etiket {n}</label><input name={`about_stat${n}_label`} value={(form as any)[`about_stat${n}_label`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+              </div>
+            ))}
+
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '8px' }}>Degerlerimiz (4 kart)</p>
+            {[1,2,3,4].map(n => (
+              <div key={n} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px' }}>
+                <div><label style={labelStyle}>Kart {n} Baslik</label><input name={`about_val${n}_title`} value={(form as any)[`about_val${n}_title`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+                <div><label style={labelStyle}>Kart {n} Aciklama</label><input name={`about_val${n}_desc`} value={(form as any)[`about_val${n}_desc`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+              </div>
+            ))}
+
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '8px' }}>Timeline (6 adim)</p>
+            {[1,2,3,4,5,6].map(n => (
+              <div key={n} style={{ display: 'grid', gridTemplateColumns: '120px 1fr 2fr', gap: '12px' }}>
+                <div><label style={labelStyle}>Yil {n}</label><input name={`about_ms${n}_year`} value={(form as any)[`about_ms${n}_year`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+                <div><label style={labelStyle}>Baslik {n}</label><input name={`about_ms${n}_title`} value={(form as any)[`about_ms${n}_title`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+                <div><label style={labelStyle}>Aciklama {n}</label><input name={`about_ms${n}_desc`} value={(form as any)[`about_ms${n}_desc`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+              </div>
+            ))}
+
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase', marginTop: '8px' }}>Calisma Sureci (4 adim)</p>
+            {[1,2,3,4].map(n => (
+              <div key={n} style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '12px' }}>
+                <div><label style={labelStyle}>Adim {n} Baslik</label><input name={`about_proc${n}_title`} value={(form as any)[`about_proc${n}_title`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+                <div><label style={labelStyle}>Adim {n} Aciklama</label><input name={`about_proc${n}_desc`} value={(form as any)[`about_proc${n}_desc`] || ''} onChange={handleChange} style={inputStyle} onFocus={focusGold} onBlur={blurSubtle} /></div>
+              </div>
+            ))}
+
           </div>
         </div>
 
