@@ -65,7 +65,7 @@ export default function Preloader() {
           textTransform: 'uppercase',
           color: 'rgba(201,168,76,0.5)',
           fontFamily: 'var(--font-dm-sans), sans-serif',
-        }}>Bilal Akbas Insaat</span>
+        }}>Bilal Akbaş Mimarlık</span>
       </div>
 
       {/* Sag ust — yil */}
@@ -187,7 +187,7 @@ export default function Preloader() {
           textAlign: 'right',
           lineHeight: 1.8,
         }}>
-          Istanbul<br />Turkiye
+          İzmir<br />Türkiye
         </p>
       </div>
 
