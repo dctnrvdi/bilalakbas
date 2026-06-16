@@ -1,5 +1,6 @@
 'use client'
 
+import Navbar from '@/components/Navbar'
 import { useRef, useEffect } from 'react'
 
 import Footer from '@/components/Footer'
@@ -71,7 +72,7 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
 
   return (
     <>
-
+      <Navbar />
       <main>
         {/* HERO */}
         <section style={{
