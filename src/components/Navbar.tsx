@@ -35,47 +35,48 @@ export default function Navbar() {
   useEffect(() => {
     fetch('/api/ayarlar')
       .then(r => r.json())
-      .then(data => {
-        if (data.logo_url) setLogoUrl(data.logo_url)
-      })
+      .then(data => { if (data.logo_url) setLogoUrl(data.logo_url) })
       .catch(() => {})
   }, [])
 
+  // Mobilde her zaman tam opak, desktop'ta scroll'a gore
+  const bgColor = isMobile
+    ? 'rgba(10,12,15,0.98)'
+    : scrolled ? 'rgba(10,12,15,0.92)' : 'rgba(10,12,15,0.4)'
+
+  const paddingV = scrolled ? '16px' : '28px'
+
   return (
     <>
-      <nav style={{
-        position: 'fixed',
-        top: 0, left: 0, right: 0,
-        zIndex: 100,
-        padding: scrolled ? '16px 40px' : '28px 40px',
-        background: scrolled ? 'rgba(10,12,15,0.92)' : 'rgba(10,12,15,0.4)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: scrolled ? '1px solid rgba(201,168,76,0.1)' : '1px solid rgba(201,168,76,0.05)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        transition: 'all 0.4s ease',
-      }}>
+      <nav
+        className="navbar-safe"
+        style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0,
+          zIndex: 100,
+          paddingBottom: paddingV,
+          paddingLeft: isMobile ? '24px' : '40px',
+          paddingRight: isMobile ? '24px' : '40px',
+          background: bgColor,
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(201,168,76,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          transition: 'background 0.4s ease, padding 0.4s ease',
+        }}
+      >
         {/* Logo */}
         <Link href="/" style={{ textDecoration: 'none' }}>
           {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt="Logo"
-              style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }}
-            />
+            <img src={logoUrl} alt="Logo" style={{ height: '32px', width: 'auto', objectFit: 'contain', display: 'block' }} />
           ) : (
             <span style={{
               fontFamily: 'var(--font-cormorant), serif',
-              fontSize: '20px',
-              fontWeight: 500,
-              color: '#F0EDE8',
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-            }}>
-              Bilal Akbas
-            </span>
+              fontSize: '20px', fontWeight: 500,
+              color: '#F0EDE8', letterSpacing: '0.12em', textTransform: 'uppercase',
+            }}>Bilal Akbas</span>
           )}
         </Link>
 
@@ -85,16 +86,11 @@ export default function Navbar() {
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="hover-line" style={{
                 fontFamily: 'var(--font-dm-sans), sans-serif',
-                fontSize: '13px',
-                fontWeight: 400,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
+                fontSize: '13px', fontWeight: 400,
+                letterSpacing: '0.1em', textTransform: 'uppercase',
                 color: pathname === link.href ? '#C9A84C' : '#9A9589',
-                textDecoration: 'none',
-                transition: 'color 0.3s ease',
-              }}>
-                {link.label}
-              </Link>
+                textDecoration: 'none', transition: 'color 0.3s ease',
+              }}>{link.label}</Link>
             ))}
             <Link href="/iletisim" className="btn-gold" style={{ padding: '10px 24px', fontSize: '12px' }}>
               Teklif Al
@@ -142,9 +138,7 @@ export default function Navbar() {
               opacity: menuOpen ? 1 : 0,
               transform: menuOpen ? 'translateY(0)' : 'translateY(16px)',
               transition: `all 0.4s ease ${i * 0.08}s`,
-            }}>
-              {link.label}
-            </Link>
+            }}>{link.label}</Link>
           ))}
           <Link href="/iletisim" className="btn-gold" style={{ marginTop: '16px' }}>
             Teklif Al

@@ -166,3 +166,9 @@ body {
   .section-pad { padding: 80px 0; }
   .container-site { padding: 0 24px; }
 }
+
+/* iOS safe area fix — navbar notch/dynamic island */
+.navbar-safe {
+  padding-top: 16px;
+  padding-top: max(16px, env(safe-area-inset-top));
+}
