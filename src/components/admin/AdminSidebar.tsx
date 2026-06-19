@@ -19,16 +19,6 @@ const NAV_GROUPS = [
         ),
       },
       {
-        href: '/studio/hakkimizda',
-        label: 'Hakkımızda',
-        icon: (
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
-            <path d="M2 14c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-          </svg>
-        ),
-      },
-      {
         href: '/studio/projeler',
         label: 'Projeler',
         icon: (
