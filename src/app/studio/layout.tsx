@@ -24,8 +24,8 @@ export default function AdminLayout({
       <AdminSidebar />
       <main style={{
         flex: 1,
-        marginLeft: '260px',
-        padding: '40px',
+        marginLeft: '240px',
+        padding: '40px 48px',
         overflowX: 'hidden',
         minHeight: '100vh',
       }}>
