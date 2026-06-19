@@ -51,7 +51,7 @@ const inputBase: React.CSSProperties = {
   transition: 'border-color 0.3s ease',
 }
 
-export default function IletisimClient() {
+export default function IletisimClient({ settings = {} }: { settings?: Record<string, string> }) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const {
@@ -158,19 +158,18 @@ export default function IletisimClient() {
                 }}>Iletisim Bilgileri</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
                   {[
-                    { label: 'Adres', lines: ['Maslak Mahallesi, Buyukdere Cad.', 'No:123 Kat:5', 'Sarıyer / Istanbul'] },
-                    { label: 'Telefon', lines: ['+90 212 000 00 00', '+90 532 000 00 00'] },
-                    { label: 'E-posta', lines: ['info@bilalakbas.com', 'proje@bilalakbas.com'] },
-                    { label: 'Calisma Saatleri', lines: ['Pazartesi - Cuma: 09:00 - 18:00', 'Cumartesi: 10:00 - 14:00'] },
-                  ].map(item => (
+                    settings.contact_address && { label: 'Adres', value: settings.contact_address },
+                    settings.contact_phone && { label: 'Telefon', value: settings.contact_phone },
+                    settings.contact_email && { label: 'E-posta', value: settings.contact_email },
+                  ].filter(Boolean).map((item: any) => (
                     <div key={item.label}>
                       <p style={{
                         fontSize: '10px', fontWeight: 600,
                         letterSpacing: '0.18em', textTransform: 'uppercase',
                         color: 'var(--text-muted)', marginBottom: '10px',
                       }}>{item.label}</p>
-                      {item.lines.map(line => (
-                        <p key={line} style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{line}</p>
+                      {item.value.split('\n').map((line: string, i: number) => (
+                        <p key={i} style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{line}</p>
                       ))}
                     </div>
                   ))}
@@ -386,7 +385,7 @@ export default function IletisimClient() {
             <p style={{
               fontFamily: 'var(--font-cormorant), serif',
               fontSize: '20px', fontWeight: 300, color: 'var(--text-secondary)',
-            }}>Maslak, Istanbul</p>
+            }}>{settings.contact_address?.split('\n')[0] || 'İzmir, Türkiye'}</p>
           </div>
         </div>
       </section>

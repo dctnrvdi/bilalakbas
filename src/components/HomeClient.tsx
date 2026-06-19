@@ -18,6 +18,13 @@ type Project = {
   order: number
 }
 
+function nl(text: string) {
+  const parts = text.split('\n')
+  return parts.map((line, i) => (
+    <span key={i}>{line}{i < parts.length - 1 && <br />}</span>
+  ))
+}
+
 export default function HomeClient({
   projects = [],
   settings = {},
@@ -266,7 +273,7 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
                 >
                   <p style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '48px', fontWeight: 300, color: 'rgba(201,168,76,0.2)', lineHeight: 1, marginBottom: '24px' }}>{service.num}</p>
                   <h3 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '24px', fontWeight: 400, color: 'var(--text-primary)', marginBottom: '12px' }}>{service.title}</h3>
-                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{service.desc}</p>
+                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{nl(service.desc)}</p>
                 </div>
               </RevealSection>
             ))}

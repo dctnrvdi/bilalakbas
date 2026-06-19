@@ -22,6 +22,13 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
   return <div ref={ref}>{children}</div>
 }
 
+function nl(text: string) {
+  const parts = text.split('\n')
+  return parts.map((line, i) => (
+    <span key={i}>{line}{i < parts.length - 1 && <br />}</span>
+  ))
+}
+
 export default function HakkimizdaClient({ settings = {} }: { settings?: Record<string, string> }) {
 
   const s = settings
@@ -105,8 +112,8 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
                 <div>
                   <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '24px' }}>Hikayemiz</p>
                   <h2 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 300, lineHeight: 1.2, color: 'var(--text-primary)', marginBottom: '32px' }}>{storyTitle}</h2>
-                  <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '24px' }}>{storyText1}</p>
-                  <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.8 }}>{storyText2}</p>
+                  <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: '24px' }}>{nl(storyText1)}</p>
+                  <p style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: 1.8 }}>{nl(storyText2)}</p>
                 </div>
               </RevealSection>
               <RevealSection delay={0.2}>
@@ -143,7 +150,7 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
                   >
                     <p style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '48px', fontWeight: 300, color: 'rgba(201,168,76,0.2)', lineHeight: 1, marginBottom: '24px' }}>{v.num}</p>
                     <h3 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '26px', fontWeight: 400, color: 'var(--text-primary)', marginBottom: '12px' }}>{v.title}</h3>
-                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{v.desc}</p>
+                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{nl(v.desc)}</p>
                   </div>
                 </RevealSection>
               ))}
@@ -172,7 +179,7 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
                       </div>
                       <div>
                         <h3 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '22px', fontWeight: 400, color: 'var(--text-primary)', marginBottom: '8px' }}>{m.title}</h3>
-                        <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{m.desc}</p>
+                        <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{nl(m.desc)}</p>
                       </div>
                     </div>
                   </RevealSection>
@@ -200,7 +207,7 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
                     <div style={{ position: 'absolute', left: 0, top: '6px', width: '2px', height: '40px', background: 'var(--gold)' }} />
                     <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '12px' }}>{p.step}</p>
                     <h3 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: '22px', fontWeight: 400, color: 'var(--text-primary)', marginBottom: '10px' }}>{p.title}</h3>
-                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{p.desc}</p>
+                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.7 }}>{nl(p.desc)}</p>
                   </div>
                 </RevealSection>
               ))}
