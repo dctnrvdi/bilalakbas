@@ -171,7 +171,7 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
           <div style={{ maxWidth: '680px' }}>
             <div className="animate-fade-in" style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '40px' }}>
               <div style={{ width: '40px', height: '1px', background: 'var(--gold)' }} />
-              <span style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)' }}>Est. 2010 · Istanbul</span>
+              <span style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)' }}>Est 2018 İzmir</span>
             </div>
             <h1 className="animate-fade-up delay-100" style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(52px, 7vw, 96px)', fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.02em', color: 'var(--text-primary)', marginBottom: '32px' }}>
               {settings.hero_title ? (
