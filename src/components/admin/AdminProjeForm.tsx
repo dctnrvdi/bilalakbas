@@ -1,8 +1,92 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Link from 'next/link'
 import MediaUpload from './MediaUpload'
+
+function MultiUpload({ onAdd }: { onAdd: (items: { url: string; type: 'image' | 'video' }[]) => void }) {
+  const [done, setDone] = useState(0)
+  const [total, setTotal] = useState(0)
+  const [errors, setErrors] = useState(0)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const busy = total > 0 && done + errors < total
+
+  const uploadAll = async (files: File[]) => {
+    setDone(0); setErrors(0); setTotal(files.length)
+    const results = await Promise.all(
+      files.map(async file => {
+        const isVideo = file.type.startsWith('video/')
+        try {
+          const fd = new FormData()
+          fd.append('file', file)
+          fd.append('type', isVideo ? 'video' : 'image')
+          const res = await fetch('/api/upload', { method: 'POST', body: fd })
+          const data = await res.json()
+          if (data.url) { setDone(d => d + 1); return { url: data.url as string, type: (isVideo ? 'video' : 'image') as 'image' | 'video' } }
+          setErrors(e => e + 1); return null
+        } catch { setErrors(e => e + 1); return null }
+      })
+    )
+    const items = results.filter((r): r is { url: string; type: 'image' | 'video' } => !!r)
+    if (items.length) onAdd(items)
+    setTimeout(() => setTotal(0), 1500)
+  }
+
+  const onInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || [])
+    if (files.length) uploadAll(files)
+    e.target.value = ''
+  }
+
+  const onDrop = (e: React.DragEvent) => {
+    e.preventDefault()
+    const files = Array.from(e.dataTransfer.files || [])
+    if (files.length) uploadAll(files)
+  }
+
+  return (
+    <div
+      onClick={() => !busy && inputRef.current?.click()}
+      onDragOver={e => e.preventDefault()}
+      onDrop={onDrop}
+      style={{
+        border: '1px dashed var(--border-subtle)',
+        padding: '24px 16px', cursor: busy ? 'default' : 'pointer',
+        textAlign: 'center', background: 'var(--dark-3)',
+        transition: 'border-color 0.2s ease',
+      }}
+      onMouseEnter={e => { if (!busy) (e.currentTarget as HTMLElement).style.borderColor = 'var(--gold)' }}
+      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-subtle)' }}
+    >
+      <input ref={inputRef} type="file" multiple accept="image/*,video/*" onChange={onInput} style={{ display: 'none' }} />
+      {busy ? (
+        <div>
+          <p style={{ fontSize: '12px', color: 'var(--gold)', fontFamily: 'var(--font-dm-sans)', marginBottom: '8px' }}>
+            {done + errors} / {total} yüklendi
+          </p>
+          <div style={{ height: '2px', background: 'rgba(255,255,255,0.06)', borderRadius: '1px' }}>
+            <div style={{
+              height: '100%', background: 'var(--gold)', borderRadius: '1px',
+              width: `${((done + errors) / total) * 100}%`, transition: 'width 0.3s ease',
+            }} />
+          </div>
+          {errors > 0 && <p style={{ fontSize: '11px', color: '#e05a5a', marginTop: '6px' }}>{errors} dosya yüklenemedi</p>}
+        </div>
+      ) : total > 0 ? (
+        <p style={{ fontSize: '12px', color: '#4caf50', fontFamily: 'var(--font-dm-sans)' }}>✓ {done} dosya eklendi</p>
+      ) : (
+        <div>
+          <p style={{ fontSize: '13px', color: 'var(--text-secondary)', fontFamily: 'var(--font-dm-sans)', marginBottom: '4px' }}>
+            Birden fazla görsel veya video seçin
+          </p>
+          <p style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'var(--font-dm-sans)' }}>
+            Sürükle-bırak veya tıkla · JPG, PNG, MP4, MOV · Ctrl/Cmd ile çoklu seçim
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
 
 type Project = {
   id: number
@@ -257,86 +341,57 @@ export default function AdminProjeForm({ mode, project }: Props) {
           {/* Ic Medya */}
           <div>
             <label style={labelStyle}>Ic Gorseller ve Videolar (Proje Detay Sayfasi)</label>
-            <p style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '16px' }}>
-              Gorsel veya video ekleyebilirsiniz. Sirayla goruntulenecektir.
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {mediaItems.map((item, i) => (
-                <div key={i} style={{
-                  background: 'var(--dark-3)',
-                  border: '1px solid var(--border-subtle)',
-                  padding: '16px',
-                  display: 'flex', flexDirection: 'column', gap: '12px',
-                }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{
-                      fontSize: '11px', fontWeight: 600,
-                      letterSpacing: '0.1em', textTransform: 'uppercase',
-                      color: item.type === 'video' ? 'var(--gold)' : 'var(--text-muted)',
-                    }}>
-                      {item.type === 'video' ? 'Video' : 'Gorsel'} {i + 1}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const items = [...mediaItems]
-                        items.splice(i, 1)
-                        updateMedia(items)
-                      }}
-                      style={{
-                        background: 'none', border: '1px solid #e05a5a',
-                        color: '#e05a5a', padding: '4px 10px', cursor: 'pointer',
-                        fontSize: '11px',
-                      }}
-                    >
-                      Sil
-                    </button>
-                  </div>
-                  <MediaUpload
-                    value={item.url}
-                    onChange={url => {
-                      const items = [...mediaItems]
-                      items[i] = { ...items[i], url }
-                      updateMedia(items)
-                    }}
-                    accept={item.type}
-                  />
-                </div>
-              ))}
 
-              <div style={{ display: 'flex', gap: '12px' }}>
-                <button
-                  type="button"
-                  onClick={() => updateMedia([...mediaItems, { url: '', type: 'image' }])}
-                  style={{
-                    flex: 1, background: 'none',
-                    border: '1px solid var(--border-subtle)',
-                    color: 'var(--text-secondary)', padding: '12px',
-                    cursor: 'pointer', fontSize: '12px',
-                    transition: 'border-color 0.3s ease',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-subtle)')}
-                >
-                  + Gorsel Ekle
-                </button>
-                <button
-                  type="button"
-                  onClick={() => updateMedia([...mediaItems, { url: '', type: 'video' }])}
-                  style={{
-                    flex: 1, background: 'none',
-                    border: '1px solid var(--border-subtle)',
-                    color: 'var(--gold)', padding: '12px',
-                    cursor: 'pointer', fontSize: '12px',
-                    transition: 'border-color 0.3s ease',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--gold)')}
-                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border-subtle)')}
-                >
-                  + Video Ekle
-                </button>
+            {/* Mevcut medya — thumbnail grid */}
+            {mediaItems.length > 0 && (
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))',
+                gap: '8px', marginBottom: '12px',
+              }}>
+                {mediaItems.map((item, i) => {
+                  const isVid = item.type === 'video'
+                  return (
+                    <div key={i} style={{ position: 'relative', borderRadius: '2px', overflow: 'hidden' }}>
+                      {isVid ? (
+                        <video src={item.url} style={{ width: '100%', height: '76px', objectFit: 'cover', display: 'block' }} />
+                      ) : (
+                        <img src={item.url} alt="" style={{ width: '100%', height: '76px', objectFit: 'cover', display: 'block' }} />
+                      )}
+                      {isVid && (
+                        <div style={{
+                          position: 'absolute', bottom: '4px', left: '5px',
+                          fontSize: '10px', color: 'rgba(255,255,255,0.8)',
+                          textShadow: '0 1px 3px rgba(0,0,0,0.8)',
+                        }}>▶</div>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const items = [...mediaItems]
+                          items.splice(i, 1)
+                          updateMedia(items)
+                        }}
+                        style={{
+                          position: 'absolute', top: '4px', right: '4px',
+                          width: '20px', height: '20px', borderRadius: '50%',
+                          background: 'rgba(10,10,10,0.75)', border: 'none',
+                          color: '#fff', cursor: 'pointer', fontSize: '13px',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          lineHeight: 1,
+                        }}
+                      >×</button>
+                    </div>
+                  )
+                })}
               </div>
-            </div>
+            )}
+
+            {/* Çoklu yükleme alanı */}
+            <MultiUpload onAdd={newItems => updateMedia([...mediaItems, ...newItems])} />
+            <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '8px', fontFamily: 'var(--font-dm-sans)' }}>
+              {mediaItems.length > 0 ? `${mediaItems.length} dosya eklendi · ` : ''}Yeni dosya eklemek için yukarıya tıklayın veya sürükleyin
+            </p>
           </div>
 
           {/* One Cikan */}
