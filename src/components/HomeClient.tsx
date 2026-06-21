@@ -117,25 +117,25 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
 
 function LogoCarousel({ logos }: { logos: string[] }) {
   if (logos.length === 0) return null
-  const doubled = [...logos, ...logos]
+  // Viewport'u doldurmak icin en az 10 item olacak sekilde tekrarla
+  const repeat = Math.max(1, Math.ceil(10 / logos.length))
+  const single = Array.from({ length: repeat }, () => logos).flat()
+  const doubled = [...single, ...single]
   return (
-    <section style={{ background: 'var(--dark-2)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)', padding: '56px 0' }}>
-      {/* Label */}
-      <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <p style={{ fontSize: '10px', fontWeight: 600, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>
-          Referans Markalar
-        </p>
-      </div>
+    <section style={{ background: 'var(--dark-2)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)', padding: '0' }}>
       {/* Marquee band */}
-      <div style={{ position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', overflow: 'hidden', padding: '40px 0' }}>
         {/* Sol fade */}
-        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to right, var(--dark-2), transparent)', zIndex: 2, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(to right, var(--dark-2), transparent)', zIndex: 2, pointerEvents: 'none' }} />
         {/* Sag fade */}
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '120px', background: 'linear-gradient(to left, var(--dark-2), transparent)', zIndex: 2, pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100px', background: 'linear-gradient(to left, var(--dark-2), transparent)', zIndex: 2, pointerEvents: 'none' }} />
         <div className="logo-marquee-track">
           {doubled.map((url, i) => (
-            <div key={i} className="logo-marquee-item">
-              <img src={url} alt="" />
+            <div key={i} style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
+              <div className="logo-marquee-item">
+                <img src={url} alt="" />
+              </div>
+              <div className="logo-marquee-sep" />
             </div>
           ))}
         </div>
