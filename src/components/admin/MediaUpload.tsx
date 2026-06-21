@@ -66,7 +66,13 @@ export default function MediaUpload({
         throw new Error(errorMsg)
       }
 
-      const data = await res.json()
+      let data: any = {}
+      try {
+        data = await res.json()
+      } catch {
+        throw new Error('Sunucu geçersiz yanıt döndürdü. Lütfen tekrar deneyin.')
+      }
+      if (!data.url) throw new Error(data.error || 'Yükleme başarısız')
       setProgress(100)
       onChange(data.url)
 
