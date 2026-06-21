@@ -10,6 +10,7 @@ function MultiUpload({ onAdd }: { onAdd: (items: { url: string; type: 'image' | 
   const [errors, setErrors] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const busy = total > 0 && done + errors < total
+  const finished = !busy && total > 0
 
   const uploadAll = async (files: File[]) => {
     setDone(0); setErrors(0); setTotal(files.length)
@@ -73,8 +74,12 @@ function MultiUpload({ onAdd }: { onAdd: (items: { url: string; type: 'image' | 
           </div>
           {errors > 0 && <p style={{ fontSize: '11px', color: '#e05a5a', marginTop: '6px' }}>{errors} dosya yüklenemedi</p>}
         </div>
-      ) : total > 0 ? (
-        <p style={{ fontSize: '12px', color: '#4caf50', fontFamily: 'var(--font-dm-sans)' }}>✓ {done} dosya eklendi</p>
+      ) : finished && errors > 0 && done === 0 ? (
+        <p style={{ fontSize: '12px', color: '#e05a5a', fontFamily: 'var(--font-dm-sans)' }}>✕ {errors} dosya yüklenemedi</p>
+      ) : finished ? (
+        <p style={{ fontSize: '12px', color: '#4caf50', fontFamily: 'var(--font-dm-sans)' }}>
+          ✓ {done} dosya eklendi{errors > 0 ? ` · ${errors} hata` : ''}
+        </p>
       ) : (
         <div>
           <p style={{ fontSize: '13px', color: 'var(--text-secondary)', fontFamily: 'var(--font-dm-sans)', marginBottom: '4px' }}>
@@ -133,6 +138,7 @@ const labelStyle: React.CSSProperties = {
 export default function AdminProjeForm({ mode, project }: Props) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [dragSrc, setDragSrc] = useState<number | null>(null)
 
   const parseMedia = (images: string | undefined): MediaItem[] => {
     if (!images) return []
@@ -349,7 +355,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
           <div>
             <label style={labelStyle}>İç Görseller ve Videolar (Proje Detay Sayfası)</label>
 
-            {/* Mevcut medya — thumbnail grid */}
+            {/* Mevcut medya — thumbnail grid (sürükle-bırak ile sıralama) */}
             {mediaItems.length > 0 && (
               <div style={{
                 display: 'grid',
@@ -359,11 +365,42 @@ export default function AdminProjeForm({ mode, project }: Props) {
                 {mediaItems.map((item, i) => {
                   const isVid = item.type === 'video'
                   return (
-                    <div key={i} style={{ position: 'relative', borderRadius: '2px', overflow: 'hidden' }}>
+                    <div
+                      key={i}
+                      draggable
+                      onDragStart={e => {
+                        setDragSrc(i)
+                        e.dataTransfer.effectAllowed = 'move'
+                      }}
+                      onDragOver={e => {
+                        e.preventDefault()
+                        e.dataTransfer.dropEffect = 'move'
+                        ;(e.currentTarget as HTMLElement).style.outline = '2px solid var(--gold)'
+                      }}
+                      onDragLeave={e => {
+                        ;(e.currentTarget as HTMLElement).style.outline = 'none'
+                      }}
+                      onDrop={e => {
+                        e.preventDefault()
+                        ;(e.currentTarget as HTMLElement).style.outline = 'none'
+                        if (dragSrc === null || dragSrc === i) { setDragSrc(null); return }
+                        const reordered = [...mediaItems]
+                        const [moved] = reordered.splice(dragSrc, 1)
+                        reordered.splice(i, 0, moved)
+                        updateMedia(reordered)
+                        setDragSrc(null)
+                      }}
+                      onDragEnd={() => setDragSrc(null)}
+                      style={{
+                        position: 'relative', borderRadius: '2px', overflow: 'hidden',
+                        cursor: 'grab', opacity: dragSrc === i ? 0.5 : 1,
+                        transition: 'opacity 0.15s ease',
+                      }}
+                    >
                       {isVid ? (
-                        <video src={item.url} style={{ width: '100%', height: '76px', objectFit: 'cover', display: 'block' }} />
+                        <video src={item.url} style={{ width: '100%', height: '76px', objectFit: 'cover', display: 'block', pointerEvents: 'none' }} />
                       ) : (
-                        <img src={item.url} alt="" style={{ width: '100%', height: '76px', objectFit: 'cover', display: 'block' }} />
+                        <img src={item.url} alt="" style={{ width: '100%', height: '76px', objectFit: 'cover', display: 'block', pointerEvents: 'none' }} />
                       )}
                       {isVid && (
                         <div style={{
@@ -395,9 +432,14 @@ export default function AdminProjeForm({ mode, project }: Props) {
             )}
 
             {/* Çoklu yükleme alanı */}
-            <MultiUpload onAdd={newItems => updateMedia([...mediaItems, ...newItems])} />
+            <MultiUpload onAdd={newItems => {
+              setForm(prev => {
+                const current = parseMedia(prev.images)
+                return { ...prev, images: JSON.stringify([...current, ...newItems]) }
+              })
+            }} />
             <p style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '8px', fontFamily: 'var(--font-dm-sans)' }}>
-              {mediaItems.length > 0 ? `${mediaItems.length} dosya eklendi · ` : ''}Yeni dosya eklemek için yukarıya tıklayın veya sürükleyin
+              {mediaItems.length > 0 ? `${mediaItems.length} dosya · sürükleyerek sırala · ` : ''}Yeni dosya eklemek için yukarıya tıklayın veya sürükleyin
             </p>
           </div>
 
