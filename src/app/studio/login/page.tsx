@@ -116,7 +116,7 @@ export default function AdminLoginPage() {
                 opacity: loading ? 0.7 : 1, marginTop: '8px',
               }}
             >
-              {loading ? 'Giris Yapiliyor...' : 'Giris Yap'}
+              {loading ? 'Giriş Yapılıyor...' : 'Giriş Yap'}
             </button>
           </div>
         </div>

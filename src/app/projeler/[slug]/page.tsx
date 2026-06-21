@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const project = await prisma.project.findFirst({
       where: { slug },
     })
-    if (!project) return { title: 'Proje Bulunamadi' }
+    if (!project) return { title: 'Proje Bulunamadı' }
     return {
       title: project.title,
       description: project.description,
