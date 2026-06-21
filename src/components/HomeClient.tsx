@@ -115,6 +115,55 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
   return <div ref={ref}>{children}</div>
 }
 
+function LogoCarousel({ logos }: { logos: string[] }) {
+  if (logos.length === 0) return null
+  const doubled = [...logos, ...logos]
+  const duration = Math.max(logos.length * 4, 20)
+  return (
+    <section style={{ background: 'var(--dark-2)', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)', padding: '48px 0', overflow: 'hidden' }}>
+      <style>{`
+        @keyframes logo-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .logo-track {
+          display: flex;
+          align-items: center;
+          width: max-content;
+          animation: logo-marquee ${duration}s linear infinite;
+        }
+        .logo-track:hover { animation-play-state: paused; }
+        .logo-item img {
+          filter: brightness(0) invert(0.6);
+          transition: filter 0.3s ease, opacity 0.3s ease;
+          opacity: 0.8;
+        }
+        .logo-item:hover img {
+          filter: none;
+          opacity: 1;
+        }
+      `}</style>
+      <div style={{ overflow: 'hidden' }}>
+        <div className="logo-track">
+          {doubled.map((url, i) => (
+            <div key={i} className="logo-item" style={{ padding: '0 48px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <img
+                src={url}
+                alt=""
+                style={{ maxHeight: '48px', maxWidth: '160px', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+  const refLogos: string[] = (() => {
+    try { return JSON.parse(settings.reference_logos || '[]') } catch { return [] }
+  })()
+
   // Services bolumu — admin'den duzenlenebilir
   const servicesLabel = settings.services_label || 'Hizmetlerimiz'
   const servicesTitle = settings.services_title || 'Konut & Ticari'
@@ -248,6 +297,9 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
           )}
         </div>
       </section>
+
+      {/* REFERENCE LOGOS */}
+      <LogoCarousel logos={refLogos} />
 
       {/* SERVICES */}
       <section className="section-pad" style={{ background: 'var(--dark-2)' }}>

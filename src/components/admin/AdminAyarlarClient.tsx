@@ -163,6 +163,8 @@ export default function AdminAyarlarClient({
     footer_email: settings.footer_email || '',
     footer_address: settings.footer_address || '',
     footer_tagline: settings.footer_tagline || '',
+    // Referans logolar
+    reference_logos: settings.reference_logos || '[]',
   })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -184,6 +186,24 @@ export default function AdminAyarlarClient({
       rows={rows} placeholder={placeholder}
       style={{ ...I, resize: 'vertical' }} onFocus={foc} onBlur={blu} />
   )
+
+  const [logoUploadKey, setLogoUploadKey] = useState(0)
+
+  const refLogos: string[] = (() => {
+    try { return JSON.parse(form.reference_logos) } catch { return [] }
+  })()
+
+  const addRefLogo = (url: string) => {
+    if (!url) return
+    const updated = [...refLogos, url]
+    setForm(p => ({ ...p, reference_logos: JSON.stringify(updated) }))
+    setLogoUploadKey(k => k + 1)
+  }
+
+  const removeRefLogo = (index: number) => {
+    const updated = refLogos.filter((_, i) => i !== index)
+    setForm(p => ({ ...p, reference_logos: JSON.stringify(updated) }))
+  }
 
   const handleSubmit = async () => {
     setLoading(true)
@@ -350,6 +370,32 @@ export default function AdminAyarlarClient({
                 </div>
               ))}
             </div>
+          </Section>
+
+          <Section title="Referans Logolar" hint="Ana sayfada kayan logo bandı — PNG, SVG veya JPG">
+            {refLogos.length > 0 && (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: '8px', marginBottom: '4px' }}>
+                {refLogos.map((url, i) => (
+                  <div key={i} style={{ position: 'relative', background: 'var(--dark)', border: '1px solid var(--border-subtle)', borderRadius: '2px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '72px' }}>
+                    <img src={url} alt="" style={{ maxHeight: '40px', maxWidth: '100px', objectFit: 'contain', filter: 'brightness(0) invert(0.6)' }} />
+                    <button
+                      type="button"
+                      onClick={() => removeRefLogo(i)}
+                      style={{ position: 'absolute', top: '4px', right: '4px', width: '18px', height: '18px', background: 'rgba(10,12,15,0.8)', border: '1px solid var(--border-subtle)', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '2px', lineHeight: 1 }}
+                    >×</button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <Field label="Logo ekle (yuklenince otomatik listeye eklenir)">
+              <MediaUpload
+                key={logoUploadKey}
+                value=""
+                onChange={addRefLogo}
+                accept="image"
+                label="Logo yukle"
+              />
+            </Field>
           </Section>
 
         </div>
