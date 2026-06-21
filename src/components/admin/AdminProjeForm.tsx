@@ -14,17 +14,36 @@ function MultiUpload({ onAdd }: { onAdd: (items: { url: string; type: 'image' | 
 
   const uploadAll = async (files: File[]) => {
     setDone(0); setErrors(0); setTotal(files.length)
+
+    // Get a single signed token for the whole batch (lightweight — no file data)
+    let sig: { signature: string; timestamp: number; apiKey: string; cloudName: string; folder: string }
+    try {
+      const signRes = await fetch('/api/upload-sign', { method: 'POST' })
+      if (!signRes.ok) { setErrors(files.length); return }
+      sig = await signRes.json()
+    } catch { setErrors(files.length); return }
+
     const results = await Promise.all(
       files.map(async file => {
         const isVideo = file.type.startsWith('video/')
+        const resourceType = isVideo ? 'video' : 'image'
         try {
           const fd = new FormData()
           fd.append('file', file)
-          fd.append('type', isVideo ? 'video' : 'image')
-          const res = await fetch('/api/upload', { method: 'POST', body: fd })
+          fd.append('api_key', sig.apiKey)
+          fd.append('timestamp', String(sig.timestamp))
+          fd.append('signature', sig.signature)
+          fd.append('folder', sig.folder)
+
+          // Upload directly to Cloudinary — bypasses Vercel's 4.5 MB body limit
+          const uploadUrl = `https://api.cloudinary.com/v1_1/${sig.cloudName}/${resourceType}/upload`
+          const res = await fetch(uploadUrl, { method: 'POST', body: fd })
           if (!res.ok) { setErrors(e => e + 1); return null }
-          const data = await res.json().catch(() => ({}))
-          if (data.url) { setDone(d => d + 1); return { url: data.url as string, type: (isVideo ? 'video' : 'image') as 'image' | 'video' } }
+          const data = await res.json()
+          if (data.secure_url) {
+            setDone(d => d + 1)
+            return { url: data.secure_url as string, type: resourceType as 'image' | 'video' }
+          }
           setErrors(e => e + 1); return null
         } catch { setErrors(e => e + 1); return null }
       })
