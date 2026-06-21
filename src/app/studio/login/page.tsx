@@ -16,7 +16,7 @@ export default function AdminLoginPage() {
 
   const handleSubmit = async () => {
     if (!email || !password) {
-      setError('E-posta ve sifre zorunludur.')
+      setError('E-posta ve şifre zorunludur.')
       return
     }
     setLoading(true)
@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
     if (result?.ok) {
       router.push('/studio')
     } else {
-      setError('E-posta veya sifre hatali.')
+      setError('E-posta veya şifre hatalı.')
       setLoading(false)
     }
   }
@@ -84,7 +84,7 @@ export default function AdminLoginPage() {
                 display: 'block', fontSize: '10px', fontWeight: 600,
                 letterSpacing: '0.15em', textTransform: 'uppercase',
                 color: 'var(--text-muted)', marginBottom: '8px',
-              }}>Sifre</label>
+              }}>Şifre</label>
               <input
                 type="password"
                 value={password}

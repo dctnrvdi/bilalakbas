@@ -126,7 +126,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
             <span style={{
               fontSize: '11px', fontWeight: 500,
               letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)',
-            }}>Bize Ulasin</span>
+            }}>Bize Ulaşın</span>
           </div>
           <h1 style={{
             fontFamily: 'var(--font-cormorant), serif',
@@ -135,7 +135,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
             letterSpacing: '-0.02em', color: 'var(--text-primary)',
           }}>
             Projenizi<br />
-            <em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Konusalim.</em>
+            <em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Konuşalım.</em>
           </h1>
         </div>
       </section>
@@ -181,7 +181,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                   color: 'var(--text-secondary)', lineHeight: 1.6,
                   borderLeft: '2px solid var(--gold)', paddingLeft: '24px',
                 }}>
-                  "Her buyuk yapi, bir ilk gorusmeyle baslar."
+                  "Her büyük yapı, bir ilk görüşmeyle başlar."
                 </blockquote>
               </div>
             </RevealSection>

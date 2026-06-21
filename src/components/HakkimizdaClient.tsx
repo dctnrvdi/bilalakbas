@@ -163,8 +163,8 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
           <div className="container-site">
             <RevealSection>
               <div style={{ marginBottom: '64px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '16px' }}>Tarihcemiz</p>
-                <h2 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: 300, lineHeight: 1.1, color: 'var(--text-primary)' }}>Yolculugumuz</h2>
+                <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '16px' }}>Tarihçemiz</p>
+                <h2 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: 300, lineHeight: 1.1, color: 'var(--text-primary)' }}>Yolculuğumuz</h2>
               </div>
             </RevealSection>
             <div style={{ position: 'relative' }}>
