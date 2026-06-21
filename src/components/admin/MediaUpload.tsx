@@ -58,8 +58,12 @@ export default function MediaUpload({
       setProgress(80)
 
       if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Yükleme başarısız')
+        let errorMsg = 'Yükleme başarısız'
+        try {
+          const data = await res.json()
+          errorMsg = data.error || errorMsg
+        } catch {}
+        throw new Error(errorMsg)
       }
 
       const data = await res.json()

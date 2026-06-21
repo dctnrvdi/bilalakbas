@@ -45,7 +45,7 @@ export default function ProjeDetayClient({
             ? { url: item, type: 'image' as const }
             : item
         )
-        .filter((item: MediaItem) => item.url && item.url !== project.coverImage)
+        .filter((item: MediaItem) => item.url && item.url.trim() !== '' && item.url !== project.coverImage)
     } catch { return [] }
   }
 

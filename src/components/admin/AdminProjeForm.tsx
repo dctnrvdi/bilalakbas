@@ -21,7 +21,8 @@ function MultiUpload({ onAdd }: { onAdd: (items: { url: string; type: 'image' | 
           fd.append('file', file)
           fd.append('type', isVideo ? 'video' : 'image')
           const res = await fetch('/api/upload', { method: 'POST', body: fd })
-          const data = await res.json()
+          if (!res.ok) { setErrors(e => e + 1); return null }
+          const data = await res.json().catch(() => ({}))
           if (data.url) { setDone(d => d + 1); return { url: data.url as string, type: (isVideo ? 'video' : 'image') as 'image' | 'video' } }
           setErrors(e => e + 1); return null
         } catch { setErrors(e => e + 1); return null }
@@ -198,6 +199,11 @@ export default function AdminProjeForm({ mode, project }: Props) {
       setError('Baslik, slug ve kategori zorunludur.')
       return
     }
+    const cleanSlug = generateSlug(form.slug)
+    if (!cleanSlug) {
+      setError('Slug gecerli URL karakterleri icermelidir (a-z, 0-9, tire).')
+      return
+    }
     setLoading(true)
     setError('')
 
@@ -210,6 +216,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...form,
+          slug: cleanSlug,
           year: Number(form.year),
           order: Number(form.order),
         }),

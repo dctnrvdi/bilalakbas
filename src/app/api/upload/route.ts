@@ -24,15 +24,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Dosya bulunamadı' }, { status: 400 })
     }
 
+    const isVideo = type === 'video'
+    const maxSize = isVideo ? 100 * 1024 * 1024 : 10 * 1024 * 1024
     const bytes = await file.arrayBuffer()
+
+    if (bytes.byteLength > maxSize) {
+      return NextResponse.json(
+        { error: isVideo ? 'Video maksimum 100MB olabilir.' : 'Görsel maksimum 10MB olabilir.' },
+        { status: 413 }
+      )
+    }
+
     const buffer = Buffer.from(bytes)
     const base64 = buffer.toString('base64')
     const dataUri = `data:${file.type};base64,${base64}`
 
     const result = await cloudinary.uploader.upload(dataUri, {
       folder: 'bilal-akbas',
-      resource_type: type === 'video' ? 'video' : 'image',
-      transformation: type === 'image' ? [
+      resource_type: isVideo ? 'video' : 'image',
+      transformation: !isVideo ? [
         { quality: 'auto', fetch_format: 'auto' },
       ] : undefined,
     })
@@ -42,8 +52,9 @@ export async function POST(req: NextRequest) {
       publicId: result.public_id,
       type: result.resource_type,
     })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Upload error:', error)
-    return NextResponse.json({ error: 'Yükleme başarısız' }, { status: 500 })
+    const msg = error?.message || 'Yükleme başarısız'
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
 }

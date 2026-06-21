@@ -42,7 +42,8 @@ export default async function ProjeDetayPage({ params }: Props) {
       where: { slug },
     })
   } catch (e) {
-    console.error(e)
+    console.error('ProjeDetay DB hatası:', e)
+    throw e
   }
 
   if (!project) {
