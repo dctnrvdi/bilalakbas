@@ -118,28 +118,28 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
   // Services bolumu — admin'den duzenlenebilir
   const servicesLabel = settings.services_label || 'Hizmetlerimiz'
   const servicesTitle = settings.services_title || 'Konut & Ticari'
-  const servicesSubtitle = settings.services_subtitle || 'Mukemmeliyetle Teslim'
+  const servicesSubtitle = settings.services_subtitle || 'Mükemmeliyetle Teslim'
 
   const serviceItems = [
     {
       num: '01',
-      title: settings.service_1_title || 'Konut Insaati',
-      desc: settings.service_1_desc || 'Villadan rezidansa, her olcekte prestijli konut projeleri.',
+      title: settings.service_1_title || 'Konut İnşaatı',
+      desc: settings.service_1_desc || 'Villadan rezidansa, her ölçekte prestijli konut projeleri.',
     },
     {
       num: '02',
-      title: settings.service_2_title || 'Ticari Yapilar',
-      desc: settings.service_2_desc || 'Ofis binalari, AVM ve endustriyel tesisler.',
+      title: settings.service_2_title || 'Ticari Yapılar',
+      desc: settings.service_2_desc || 'Ofis binaları, AVM ve endüstriyel tesisler.',
     },
     {
       num: '03',
-      title: settings.service_3_title || 'Ic Mimari',
-      desc: settings.service_3_desc || 'Anahtar teslim ic tasarim ve uygulama hizmetleri.',
+      title: settings.service_3_title || 'İç Mimari',
+      desc: settings.service_3_desc || 'Anahtar teslim iç tasarım ve uygulama hizmetleri.',
     },
     {
       num: '04',
       title: settings.service_4_title || 'Renovasyon',
-      desc: settings.service_4_desc || 'Mevcut yapilarin modern standartlara yukseltilmesi.',
+      desc: settings.service_4_desc || 'Mevcut yapıların modern standartlara yükseltilmesi.',
     },
   ]
 
@@ -184,11 +184,11 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
               {settings.hero_title ? (
                 <>{settings.hero_title.split(' ').slice(0, -1).join(' ')}<br /><em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>{settings.hero_title.split(' ').slice(-1)[0]}</em></>
               ) : (
-                <>Guven Uzerine<br /><em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Insa Edilmis.</em></>
+                <>Güven Üzerine<br /><em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>İnşa Edilmiş.</em></>
               )}
             </h1>
             <p className="animate-fade-up delay-200" style={{ fontSize: '16px', fontWeight: 300, color: 'var(--text-secondary)', lineHeight: 1.8, maxWidth: '460px', marginBottom: '56px' }}>
-              {settings.hero_subtitle || 'Konut ve ticari projelerde detaya olan bagliligimiz, guvenilirligimiz ve ozenli icraatimizla yuksek kaliteli yapilar teslim ediyoruz.'}
+              {settings.hero_subtitle || 'Konut ve ticari projelerde detaya olan bağlılığımız, güvenilirliğimiz ve özenli icraatımızla yüksek kaliteli yapılar teslim ediyoruz.'}
             </p>
             <div className="animate-fade-up delay-300" style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
               <Link href="/projeler" className="btn-gold">
@@ -201,7 +201,7 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
         </div>
 
         <div className="animate-fade-in delay-600" style={{ position: 'absolute', bottom: '40px', left: '50%', zIndex: 2, transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <span style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Kaydir</span>
+          <span style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Kaydır</span>
           <div style={{ width: '1px', height: '48px', background: 'linear-gradient(to bottom, var(--gold), transparent)' }} />
         </div>
       </section>
@@ -212,7 +212,7 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '40px' }}>
             {[1, 2, 3, 4].map(n => ({
               value: settings[`stat_${n}_value`] || ['10+', '120+', '85K+', '5/5'][n - 1],
-              label: settings[`stat_${n}_label`] || ['Yil Deneyim', 'Tamamlanan Proje', 'Insaat Alani (m2)', 'Musteri Memnuniyeti'][n - 1],
+              label: settings[`stat_${n}_label`] || ['Yıl Deneyim', 'Tamamlanan Proje', 'İnşaat Alanı (m²)', 'Müşteri Memnuniyeti'][n - 1],
             })).map((stat, i) => (
               <RevealSection key={i} delay={i * 0.1}>
                 <div style={{ textAlign: 'center' }}>
@@ -231,16 +231,16 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
           <RevealSection>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '64px', flexWrap: 'wrap', gap: '24px' }}>
               <div>
-                <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '16px' }}>Secili Calismalar</p>
+                <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '16px' }}>Seçili Çalışmalar</p>
                 <h2 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 300, lineHeight: 1.1, color: 'var(--text-primary)' }}>
-                  One Cikan<br />Projeler
+                  Öne Çıkan<br />Projeler
                 </h2>
               </div>
-              <Link href="/projeler" className="btn-gold">Tum Projeler</Link>
+              <Link href="/projeler" className="btn-gold">Tüm Projeler</Link>
             </div>
           </RevealSection>
           {projects.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '80px 0', color: 'var(--text-muted)', fontSize: '14px' }}>Henuz proje eklenmemis.</div>
+            <div style={{ textAlign: 'center', padding: '80px 0', color: 'var(--text-muted)', fontSize: '14px' }}>Henüz proje eklenmemiş.</div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '2px' }}>
               {projects.map((project, i) => <ProjectCard key={project.id} project={project} index={i} />)}
@@ -288,10 +288,10 @@ function RevealSection({ children, delay = 0 }: { children: React.ReactNode; del
             <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '24px' }}>Bir Projeniz mi Var?</p>
             <h2 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(40px, 6vw, 80px)', fontWeight: 300, lineHeight: 1.1, color: 'var(--text-primary)', marginBottom: '40px' }}>
               Vizyonunuzu<br />
-              <em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Gercege Donusturelim.</em>
+              <em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Gerçeğe Dönüştürelim.</em>
             </h2>
             <Link href="/iletisim" className="btn-gold" style={{ fontSize: '13px', padding: '16px 48px' }}>
-              Bizimle Iletisime Gecin
+              Bizimle İletişime Geçin
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </Link>
           </div>

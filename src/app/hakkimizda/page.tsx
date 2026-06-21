@@ -4,8 +4,8 @@ import HakkimizdaClient from '@/components/HakkimizdaClient'
 import { prisma } from '@/lib/prisma'
 
 export const metadata: Metadata = {
-  title: 'Hakkimizda',
-  description: 'Bilal Akbas hakkinda — vizyonumuz, misyonumuz ve ekibimiz.',
+  title: 'Hakkımızda',
+  description: 'Bilal Akbaş hakkında — vizyonumuz, misyonumuz ve ekibimiz.',
 }
 
 async function getSettings(): Promise<Record<string, string>> {

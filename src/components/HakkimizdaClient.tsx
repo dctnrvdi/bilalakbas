@@ -34,47 +34,47 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
   const s = settings
 
   // Hero
-  const heroTitle1 = s.about_hero_title1 || 'Insaati Bir'
+  const heroTitle1 = s.about_hero_title1 || 'İnşaatı Bir'
   const heroTitle2 = s.about_hero_title2 || 'Sanat Olarak'
-  const heroTitle3 = s.about_hero_title3 || 'Goruyoruz.'
+  const heroTitle3 = s.about_hero_title3 || 'Görüyoruz.'
 
   // Hikaye
-  const storyTitle = s.about_story_title || '10 Yildan Fazla Deneyim'
-  const storyText1 = s.about_story_text1 || '2010 yilinda Istanbul\'da kurulan Bilal Akbas, konut ve ticari insaat alaninda kalite ve guvenilirligin sembolu haline geldi.'
-  const storyText2 = s.about_story_text2 || 'Bugun 200\'u askın uzman kadromuzla, vizyonunuzu en yuksek standartta hayata gecirmeye devam ediyoruz.'
+  const storyTitle = s.about_story_title || '10 Yıldan Fazla Deneyim'
+  const storyText1 = s.about_story_text1 || '2010 yılında İstanbul\'da kurulan Bilal Akbaş, konut ve ticari inşaat alanında kalite ve güvenilirliğin sembolü haline geldi.'
+  const storyText2 = s.about_story_text2 || 'Bugün 200\'u aşkın uzman kadromuzla, vizyonunuzu en yüksek standartta hayata geçirmeye devam ediyoruz.'
 
   // Stats (2x2)
   const stats = [
-    { v: s.about_stat1_value || '10+', l: s.about_stat1_label || 'Yil Deneyim' },
+    { v: s.about_stat1_value || '10+', l: s.about_stat1_label || 'Yıl Deneyim' },
     { v: s.about_stat2_value || '120+', l: s.about_stat2_label || 'Proje' },
     { v: s.about_stat3_value || '200+', l: s.about_stat3_label || 'Uzman Kadro' },
-    { v: s.about_stat4_value || '%98', l: s.about_stat4_label || 'Musteri Memnuniyeti' },
+    { v: s.about_stat4_value || '%98', l: s.about_stat4_label || 'Müşteri Memnuniyeti' },
   ]
 
   // Degerler
   const values = [
-    { num: '01', title: s.about_val1_title || 'Guven', desc: s.about_val1_desc || 'Her projede soz verdigimizi yapariz. Musterilerimizle kurduğumuz guven iliskisi, onlarca yillik isbirliklerinin temelidir.' },
-    { num: '02', title: s.about_val2_title || 'Kalite', desc: s.about_val2_desc || 'Malzeme seciminden son detaya kadar her asamada en yuksek standartlari uygulariz.' },
-    { num: '03', title: s.about_val3_title || 'Seffaflik', desc: s.about_val3_desc || 'Surec boyunca acik iletisim kurar, musterilerimizi her adimda bilgilendiririz.' },
-    { num: '04', title: s.about_val4_title || 'Surdurulebilirlik', desc: s.about_val4_desc || 'Cevre dostu malzemeler ve enerji verimli tasarimlarla gelecegi dusenerek insa ederiz.' },
+    { num: '01', title: s.about_val1_title || 'Güven', desc: s.about_val1_desc || 'Her projede söz verdiğimizi yaparız. Müşterilerimizle kurduğumuz güven ilişkisi, onlarca yıllık işbirliklerinin temelidir.' },
+    { num: '02', title: s.about_val2_title || 'Kalite', desc: s.about_val2_desc || 'Malzeme seçiminden son detaya kadar her aşamada en yüksek standartları uygularız.' },
+    { num: '03', title: s.about_val3_title || 'Şeffaflık', desc: s.about_val3_desc || 'Süreç boyunca açık iletişim kurar, müşterilerimizi her adımda bilgilendiririz.' },
+    { num: '04', title: s.about_val4_title || 'Sürdürülebilirlik', desc: s.about_val4_desc || 'Çevre dostu malzemeler ve enerji verimli tasarımlarla geleceği düşünerek inşa ederiz.' },
   ]
 
   // Timeline
   const milestones = [
-    { year: s.about_ms1_year || '2010', title: s.about_ms1_title || 'Kurulus', desc: s.about_ms1_desc || 'Istanbul\'da iki ortak tarafindan kuruldu.' },
-    { year: s.about_ms2_year || '2013', title: s.about_ms2_title || 'Ilk Buyuk Proje', desc: s.about_ms2_desc || 'Maslak\'ta 12 katli ticari yapi tamamlandi.' },
-    { year: s.about_ms3_year || '2016', title: s.about_ms3_title || 'Buyume', desc: s.about_ms3_desc || 'Ankara ve Izmir ofisleri acildi.' },
-    { year: s.about_ms4_year || '2019', title: s.about_ms4_title || '100. Proje', desc: s.about_ms4_desc || 'Luks konut segmentine girildi.' },
-    { year: s.about_ms5_year || '2022', title: s.about_ms5_title || 'Uluslararasi', desc: s.about_ms5_desc || 'KKTC\'de ilk yurt disi proje baslatildi.' },
-    { year: s.about_ms6_year || '2024', title: s.about_ms6_title || 'Bugun', desc: s.about_ms6_desc || '120+ tamamlanmis proje, 200+ calisan.' },
+    { year: s.about_ms1_year || '2010', title: s.about_ms1_title || 'Kuruluş', desc: s.about_ms1_desc || 'İstanbul\'da iki ortak tarafından kuruldu.' },
+    { year: s.about_ms2_year || '2013', title: s.about_ms2_title || 'İlk Büyük Proje', desc: s.about_ms2_desc || 'Maslak\'ta 12 katlı ticari yapı tamamlandı.' },
+    { year: s.about_ms3_year || '2016', title: s.about_ms3_title || 'Büyüme', desc: s.about_ms3_desc || 'Ankara ve İzmir ofisleri açıldı.' },
+    { year: s.about_ms4_year || '2019', title: s.about_ms4_title || '100. Proje', desc: s.about_ms4_desc || 'Lüks konut segmentine girildi.' },
+    { year: s.about_ms5_year || '2022', title: s.about_ms5_title || 'Uluslararası', desc: s.about_ms5_desc || 'KKTC\'de ilk yurt dışı proje başlatıldı.' },
+    { year: s.about_ms6_year || '2024', title: s.about_ms6_title || 'Bugün', desc: s.about_ms6_desc || '120+ tamamlanmış proje, 200+ çalışan.' },
   ]
 
   // Calisma sureci
   const process = [
-    { step: '01', title: s.about_proc1_title || 'Kesif & Brifing', desc: s.about_proc1_desc || 'Ihtiyaclarinizi ve vizyonunuzu derinlemesine anliyoruz.' },
-    { step: '02', title: s.about_proc2_title || 'Tasarim & Planlama', desc: s.about_proc2_desc || 'Muhendislik ve mimarlik ekibimiz detayli proje plani hazirlar.' },
-    { step: '03', title: s.about_proc3_title || 'Insaat', desc: s.about_proc3_desc || 'Onaylı malzemeler ve uzman ekibimizle yapim baslar.' },
-    { step: '04', title: s.about_proc4_title || 'Teslim', desc: s.about_proc4_desc || 'Eksiksiz kontrol ve denetimden sonra anahtar teslim yapilir.' },
+    { step: '01', title: s.about_proc1_title || 'Keşif & Brifing', desc: s.about_proc1_desc || 'İhtiyaçlarınızı ve vizyonunuzu derinlemesine anlıyoruz.' },
+    { step: '02', title: s.about_proc2_title || 'Tasarım & Planlama', desc: s.about_proc2_desc || 'Mühendislik ve mimarlık ekibimiz detaylı proje planı hazırlar.' },
+    { step: '03', title: s.about_proc3_title || 'İnşaat', desc: s.about_proc3_desc || 'Onaylı malzemeler ve uzman ekibimizle yapım başlar.' },
+    { step: '04', title: s.about_proc4_title || 'Teslim', desc: s.about_proc4_desc || 'Eksiksiz kontrol ve denetimden sonra anahtar teslim yapılır.' },
   ]
 
   return (
@@ -90,7 +90,7 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
         }}>
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 50%), linear-gradient(135deg, #0A0C0F 0%, #111318 100%)' }} />
           <div style={{ position: 'absolute', inset: 0, backgroundImage: 'linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px)', backgroundSize: '80px 80px', pointerEvents: 'none' }} />
-          <div style={{ position: 'absolute', left: '-20px', top: '50%', transform: 'translateY(-60%)', fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(100px, 16vw, 240px)', fontWeight: 300, color: 'transparent', WebkitTextStroke: '1px rgba(201,168,76,0.06)', pointerEvents: 'none', userSelect: 'none', whiteSpace: 'nowrap' }}>INSAAT</div>
+          <div style={{ position: 'absolute', left: '-20px', top: '50%', transform: 'translateY(-60%)', fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(100px, 16vw, 240px)', fontWeight: 300, color: 'transparent', WebkitTextStroke: '1px rgba(201,168,76,0.06)', pointerEvents: 'none', userSelect: 'none', whiteSpace: 'nowrap' }}>İNŞAAT</div>
           <div className="container-site" style={{ position: 'relative', zIndex: 2, paddingTop: '160px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '32px' }}>
               <div style={{ width: '40px', height: '1px', background: 'var(--gold)' }} />
@@ -194,9 +194,9 @@ export default function HakkimizdaClient({ settings = {} }: { settings?: Record<
           <div className="container-site">
             <RevealSection>
               <div style={{ marginBottom: '64px' }}>
-                <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '16px' }}>Calisma Surecimiz</p>
+                <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '16px' }}>Çalışma Sürecimiz</p>
                 <h2 style={{ fontFamily: 'var(--font-cormorant), serif', fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: 300, lineHeight: 1.1, color: 'var(--text-primary)' }}>
-                  Yapiyla Insa Et,<br /><em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Guvenle Teslim Et</em>
+                  Yapıyla İnşa Et,<br /><em style={{ fontStyle: 'italic', color: 'var(--gold)' }}>Güvenle Teslim Et</em>
                 </h2>
               </div>
             </RevealSection>

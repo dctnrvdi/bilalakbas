@@ -15,8 +15,8 @@ export default function Footer() {
 
   const phone = settings.footer_phone || '+90 212 000 00 00'
   const email = settings.footer_email || 'info@bilalakbas.com'
-  const address = settings.footer_address || 'Istanbul, Turkiye'
-  const tagline = settings.footer_tagline || 'Guven - Kalite - Mukemmellik'
+  const address = settings.footer_address || 'İstanbul, Türkiye'
+  const tagline = settings.footer_tagline || 'Güven - Kalite - Mükemmellik'
 
   return (
     <footer style={{ background: 'var(--dark-2)', borderTop: '1px solid var(--border-subtle)' }}>
@@ -37,16 +37,16 @@ export default function Footer() {
                 color: 'var(--text-primary)', marginBottom: '16px',
               }}>Bilal Akbas</p>
               <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.7, maxWidth: '260px' }}>
-                Guven uzerine insa edilmis, mukemmeliyetle teslim edilen projeler.
+                Güven üzerine inşa edilmiş, mükemmeliyetle teslim edilen projeler.
               </p>
             </div>
 
             <div>
               <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '20px' }}>Sayfalar</p>
               {[
-                { href: '/hakkimizda', label: 'Hakkimizda' },
+                { href: '/hakkimizda', label: 'Hakkımızda' },
                 { href: '/projeler', label: 'Projeler' },
-                { href: '/iletisim', label: 'Iletisim' },
+                { href: '/iletisim', label: 'İletişim' },
               ].map(link => (
                 <Link key={link.href} href={link.href} style={{ display: 'block', fontSize: '13px', color: 'var(--text-secondary)', textDecoration: 'none', marginBottom: '12px', transition: 'color 0.3s ease' }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold)')}
@@ -56,7 +56,7 @@ export default function Footer() {
             </div>
 
             <div>
-              <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '20px' }}>Iletisim</p>
+              <p style={{ fontSize: '11px', fontWeight: 500, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '20px' }}>İletişim</p>
               {[email, phone, address].map(item => (
                 <p key={item} style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '12px' }}>{item}</p>
               ))}
@@ -65,7 +65,7 @@ export default function Footer() {
 
           <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
             <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>
-              © {new Date().getFullYear()} Bilal Akbas. Tum haklari saklidir.
+              © {new Date().getFullYear()} Bilal Akbaş. Tüm hakları saklıdır.
             </p>
             <p style={{ fontSize: '12px', color: 'var(--text-muted)' }}>{tagline}</p>
           </div>

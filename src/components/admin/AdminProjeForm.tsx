@@ -196,12 +196,12 @@ export default function AdminProjeForm({ mode, project }: Props) {
 
   const handleSubmit = async () => {
     if (!form.title || !form.slug || !form.category) {
-      setError('Baslik, slug ve kategori zorunludur.')
+      setError('Başlık, slug ve kategori zorunludur.')
       return
     }
     const cleanSlug = generateSlug(form.slug)
     if (!cleanSlug) {
-      setError('Slug gecerli URL karakterleri icermelidir (a-z, 0-9, tire).')
+      setError('Slug geçerli URL karakterleri içermelidir (a-z, 0-9, tire).')
       return
     }
     setLoading(true)
@@ -226,10 +226,10 @@ export default function AdminProjeForm({ mode, project }: Props) {
         window.location.href = '/studio/projeler'
       } else {
         const data = await res.json()
-        setError(data.error || 'Bir hata olustu.')
+        setError(data.error || 'Bir hata oluştu.')
       }
     } catch {
-      setError('Bir hata olustu.')
+      setError('Bir hata oluştu.')
     }
     setLoading(false)
   }
@@ -246,14 +246,14 @@ export default function AdminProjeForm({ mode, project }: Props) {
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--gold)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
           >
-            Projelere Don
+            Projelere Dön
           </Link>
         </div>
         <p style={{
           fontSize: '11px', fontWeight: 500,
           letterSpacing: '0.2em', textTransform: 'uppercase',
           color: 'var(--gold)', marginBottom: '8px',
-        }}>{mode === 'create' ? 'Yeni Proje' : 'Proje Duzenle'}</p>
+        }}>{mode === 'create' ? 'Yeni Proje' : 'Proje Düzenle'}</p>
         <h1 style={{
           fontFamily: 'var(--font-cormorant), serif',
           fontSize: '36px', fontWeight: 300,
@@ -273,7 +273,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             <div>
-              <label style={labelStyle}>Baslik *</label>
+              <label style={labelStyle}>Başlık *</label>
               <input name="title" value={form.title} onChange={handleTitleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
                 onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
@@ -295,7 +295,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
                 onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')}>
                 <option value="Konut">Konut</option>
                 <option value="Ticari">Ticari</option>
-                <option value="Luks">Luks</option>
+                <option value="Lüks">Lüks</option>
               </select>
             </div>
             <div>
@@ -308,7 +308,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px' }}>
             <div>
-              <label style={labelStyle}>Yil</label>
+              <label style={labelStyle}>Yıl</label>
               <input name="year" type="number" value={form.year} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
                 onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
@@ -320,7 +320,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
                 onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
             </div>
             <div>
-              <label style={labelStyle}>Sira</label>
+              <label style={labelStyle}>Sıra</label>
               <input name="order" type="number" value={form.order} onChange={handleChange} style={inputStyle}
                 onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
                 onBlur={e => (e.target.style.borderColor = 'var(--border-subtle)')} />
@@ -328,7 +328,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
           </div>
 
           <div>
-            <label style={labelStyle}>Aciklama</label>
+            <label style={labelStyle}>Açıklama</label>
             <textarea name="description" value={form.description} onChange={handleChange} rows={4}
               style={{ ...inputStyle, resize: 'vertical' }}
               onFocus={e => (e.target.style.borderColor = 'var(--gold)')}
@@ -337,7 +337,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
 
           {/* Kapak Gorseli */}
           <div>
-            <label style={labelStyle}>Kapak Gorseli (Hero Fotograf)</label>
+            <label style={labelStyle}>Kapak Görseli (Hero Fotoğraf)</label>
             <MediaUpload
               value={form.coverImage}
               onChange={url => setForm(prev => ({ ...prev, coverImage: url }))}
@@ -347,7 +347,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
 
           {/* Ic Medya */}
           <div>
-            <label style={labelStyle}>Ic Gorseller ve Videolar (Proje Detay Sayfasi)</label>
+            <label style={labelStyle}>İç Görseller ve Videolar (Proje Detay Sayfası)</label>
 
             {/* Mevcut medya — thumbnail grid */}
             {mediaItems.length > 0 && (
@@ -401,7 +401,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
             </p>
           </div>
 
-          {/* One Cikan */}
+          {/* Öne Çıkan */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <input type="checkbox" name="featured" id="featured"
               checked={form.featured} onChange={handleChange}
@@ -409,7 +409,7 @@ export default function AdminProjeForm({ mode, project }: Props) {
             <label htmlFor="featured" style={{
               fontSize: '13px', color: 'var(--text-secondary)', cursor: 'pointer',
             }}>
-              Ana sayfada one cikan proje olarak goster
+              Ana sayfada öne çıkan proje olarak göster
             </label>
           </div>
 
@@ -418,9 +418,9 @@ export default function AdminProjeForm({ mode, project }: Props) {
           <div style={{ display: 'flex', gap: '12px', paddingTop: '8px' }}>
             <button onClick={handleSubmit} disabled={loading} className="btn-gold"
               style={{ opacity: loading ? 0.7 : 1, cursor: loading ? 'not-allowed' : 'pointer' }}>
-              {loading ? 'Kaydediliyor...' : mode === 'create' ? 'Projeyi Kaydet' : 'Degisiklikleri Kaydet'}
+              {loading ? 'Kaydediliyor...' : mode === 'create' ? 'Projeyi Kaydet' : 'Değişiklikleri Kaydet'}
             </button>
-            <Link href="/studio/projeler" className="btn-dark">Iptal</Link>
+            <Link href="/studio/projeler" className="btn-dark">İptal</Link>
           </div>
         </div>
       </div>

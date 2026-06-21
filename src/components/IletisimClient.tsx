@@ -155,7 +155,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                   fontSize: '11px', fontWeight: 500,
                   letterSpacing: '0.2em', textTransform: 'uppercase',
                   color: 'var(--gold)', marginBottom: '40px',
-                }}>Iletisim Bilgileri</p>
+                }}>İletişim Bilgileri</p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
                   {[
                     settings.contact_address && { label: 'Adres', value: settings.contact_address },
@@ -193,7 +193,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                   fontSize: '11px', fontWeight: 500,
                   letterSpacing: '0.2em', textTransform: 'uppercase',
                   color: 'var(--gold)', marginBottom: '40px',
-                }}>Mesaj Gonderin</p>
+                }}>Mesaj Gönderin</p>
 
                 {status === 'success' ? (
                   <div style={{
@@ -214,9 +214,9 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                       fontFamily: 'var(--font-cormorant), serif',
                       fontSize: '28px', fontWeight: 300,
                       color: 'var(--text-primary)', marginBottom: '12px',
-                    }}>Mesajiniz Iletildi</h3>
+                    }}>Mesajınız İletildi</h3>
                     <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>
-                      En kisa surede sizinle iletisime gecegiz.
+                      En kısa sürede sizinle iletişime geçeceğiz.
                     </p>
                     <button onClick={() => setStatus('idle')} className="btn-gold" style={{ marginTop: '32px' }}>
                       Yeni Mesaj
@@ -290,11 +290,11 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                           onFocus={e => { if (!errors.subject) e.target.style.borderColor = 'var(--gold)' }}
                           onBlur={e => { if (!errors.subject) e.target.style.borderColor = 'var(--border-subtle)' }}
                         >
-                          <option value="">Seciniz</option>
+                          <option value="">Seçiniz</option>
                           <option value="Konut Projesi">Konut Projesi</option>
                           <option value="Ticari Proje">Ticari Proje</option>
                           <option value="Renovasyon">Renovasyon</option>
-                          <option value="Ic Mimari">Ic Mimari</option>
+                          <option value="İç Mimari">İç Mimari</option>
                           <option value="Genel Bilgi">Genel Bilgi</option>
                         </select>
                         {errors.subject && (
@@ -309,7 +309,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                         display: 'block', fontSize: '10px', fontWeight: 600,
                         letterSpacing: '0.15em', textTransform: 'uppercase',
                         color: 'var(--text-muted)', marginBottom: '8px',
-                      }}>Mesajiniz *</label>
+                      }}>Mesajınız *</label>
                       <textarea
                         {...register('message')}
                         rows={6}
@@ -323,7 +323,7 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                     </div>
 
                     {status === 'error' && (
-                      <p style={{ fontSize: '13px', color: '#e05a5a' }}>Bir hata olustu, lutfen tekrar deneyin.</p>
+                      <p style={{ fontSize: '13px', color: '#e05a5a' }}>Bir hata oluştu, lütfen tekrar deneyin.</p>
                     )}
 
                     <button
@@ -342,9 +342,9 @@ export default function IletisimClient({ settings = {} }: { settings?: Record<st
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ animation: 'spin 1s linear infinite' }}>
                             <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.5" strokeDasharray="20" strokeDashoffset="10"/>
                           </svg>
-                          Gonderiliyor...
+                          Gönderiliyor...
                         </>
-                      ) : 'Mesaji Gonder'}
+                      ) : 'Mesajı Gönder'}
                     </button>
                   </form>
                 )}

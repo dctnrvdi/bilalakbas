@@ -22,23 +22,23 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Bilal Akbas | Insaat & Mimarlik',
-    template: '%s | Bilal Akbas',
+    default: 'Bilal Akbaş | İnşaat & Mimarlık',
+    template: '%s | Bilal Akbaş',
   },
-  description: 'Bilal Akbas - guven uzerine insa edilmis, mukemmeliyetle teslim edilen konut ve ticari projeler.',
-  keywords: ['insaat', 'mimarlik', 'konut', 'ticari', 'bilal akbas', 'istanbul'],
-  authors: [{ name: 'Bilal Akbas' }],
+  description: 'Bilal Akbaş - güven üzerine inşa edilmiş, mükemmeliyetle teslim edilen konut ve ticari projeler.',
+  keywords: ['inşaat', 'mimarlık', 'konut', 'ticari', 'bilal akbaş', 'istanbul'],
+  authors: [{ name: 'Bilal Akbaş' }],
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    siteName: 'Bilal Akbas',
-    title: 'Bilal Akbas | Insaat & Mimarlik',
-    description: 'Guven uzerine insa edilmis projeler.',
+    siteName: 'Bilal Akbaş',
+    title: 'Bilal Akbaş | İnşaat & Mimarlık',
+    description: 'Güven üzerine inşa edilmiş projeler.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bilal Akbas',
-    description: 'Guven uzerine insa edilmis projeler.',
+    title: 'Bilal Akbaş',
+    description: 'Güven üzerine inşa edilmiş projeler.',
   },
   robots: { index: true, follow: true },
 }
