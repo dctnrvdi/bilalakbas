@@ -46,6 +46,7 @@ export default function Footer() {
               {[
                 { href: '/hakkimizda', label: 'Hakkımızda' },
                 { href: '/projeler', label: 'Projeler' },
+                { href: '/ekip', label: 'Ekip' },
                 { href: '/iletisim', label: 'İletişim' },
               ].map(link => (
                 <Link key={link.href} href={link.href} style={{ display: 'block', fontSize: '13px', color: 'var(--text-secondary)', textDecoration: 'none', marginBottom: '12px', transition: 'color 0.3s ease' }}

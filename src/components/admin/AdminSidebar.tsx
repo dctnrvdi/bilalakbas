@@ -38,6 +38,18 @@ const NAV_GROUPS = [
           </svg>
         ),
       },
+      {
+        href: '/studio/ekip',
+        label: 'Ekip',
+        icon: (
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+            <circle cx="6" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.2"/>
+            <path d="M1 13c0-2.761 2.239-5 5-5s5 2.239 5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+            <circle cx="12" cy="5" r="2" stroke="currentColor" strokeWidth="1.2"/>
+            <path d="M12 10c1.657 0 3 1.343 3 3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+          </svg>
+        ),
+      },
     ],
   },
 ]

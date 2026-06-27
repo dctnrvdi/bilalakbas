@@ -48,3 +48,14 @@ model SiteSettings {
   key             String @unique
   value           String
 }
+
+model TeamMember {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  bio       String?
+  image     String?
+  order     Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
